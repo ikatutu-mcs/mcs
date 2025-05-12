@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mauri Cleaning Estimate</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <img src="images/mcs_logo.png" alt="Mauri Cleaning Solutions Logo" class="logo">
+    <h2>Cleaning Estimate Calculator</h2>
+  </header>
+
+  <main class="container">
+    <section class="form-section">
+      <div class="section-block">
+        <h3>Property Info</h3>
+        <label>Bedrooms:
+          <select id="bedrooms">
+            <option value="0">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </label>
+        <label>Bathrooms:
+          <select id="bathrooms">
+            <option value="0">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </label>
+        <label>Number of Cleaners:
+          <select id="cleaners">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="kitchen" /> Kitchen</label>
+        <label><input type="checkbox" id="livingRoom" /> Living Room</label>
+        <label><input type="checkbox" id="pets" /> Indoor Pet[s]?</label>
+        <label>Type of Building:
+          <select id="buildingType">
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+          </select>
+        </label>
+        <label>Discount Option:
+          <select id="discountOption">
+            <option value="0">No discount</option>
+            <option value="20">Family & Friend's Discount</option>
+            <option value="30">Promo Discount</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="section-block">
+        <h3>Service Frequency</h3>
+        <label><input type="checkbox" id="oneTimeCheckbox" /> One-time</label>
+        <div id="oneTimeOptions" style="display: none; margin-left: 1rem;">
+          <label><input type="radio" name="oneTimeType" value="light" /> Light <button id="show-light-tasks">Show Tasks</button></label>
+          <div id="light-tasks" style="display: none; margin-left: 1rem; text-align: left;">
+            <h4>Light Cleaning Tasks</h4>
+            <p>(Basic maintenance – ideal for regular upkeep or recurring visits)</p>
+            <ul>
+              <li><strong>General Areas (Bedrooms, Living Room, Office, Hallways):</strong></li>
+              <ul>
+                <li>Dust all surfaces (tables, shelves, décor)</li>
+                <li>Wipe down visible surfaces (non-sticky, no buildup)</li>
+                <li>Vacuum carpets and rugs</li>
+                <li>Sweep & mop hard floors</li>
+                <li>Empty trash bins</li>
+                <li>Straighten up (arranging pillows, folding blankets)</li>
+                <li>Light dusting of baseboards and vents</li>
+                <li>Clean mirrors and glass surfaces (spot cleaning)</li>
+                <li>Light cobweb removal (reachable areas)</li>
+              </ul>
+              <li><strong>Kitchen:</strong></li>
+              <ul>
+                <li>Wipe countertops</li>
+                <li>Clean exterior of appliances (microwave, fridge, oven)</li>
+                <li>Wipe sink and faucet</li>
+                <li>Light spot clean backsplash</li>
+                <li>Sweep and mop floors</li>
+                <li>Empty trash</li>
+              </ul>
+              <li><strong>Bathrooms:</strong></li>
+              <ul>
+                <li>Clean toilet (seat, bowl, base)</li>
+                <li>Wipe down sink, faucet, mirror</li>
+                <li>Spot clean shower or tub</li>
+                <li>Refill toilet paper/soap (if provided)</li>
+                <li>Sweep and mop floors</li>
+                <li>Empty trash</li>
+              </ul>
+            </ul>
+          </div>
+          <label><input type="radio" name="oneTimeType" value="deep" /> Deep <button id="show-deep-tasks">Show Tasks</button></label>
+          <div id="deep-tasks" style="display: none; margin-left: 1rem; text-align: left;">
+            <h4>🧼 Deep Cleaning Tasks</h4>
+            <p>(Detailed and thorough – recommended for first-time, move-in/out, or quarterly cleaning)</p>
+            <p>Includes ALL light cleaning tasks, plus:</p>
+            <ul>
+              <li><strong>General Areas:</strong></li>
+              <ul>
+                <li>Hand wash baseboards and doors</li>
+                <li>Dust blinds, window sills, and ceiling fans</li>
+                <li>Clean inside windows and tracks</li>
+                <li>Wipe down walls (light marks)</li>
+                <li>Vacuum furniture (under cushions)</li>
+                <li>Remove cobwebs (high corners, ceilings)</li>
+                <li>Dust light fixtures</li>
+                <li>Clean behind/under furniture (when accessible)</li>
+              </ul>
+              <li><strong>Kitchen:</strong></li>
+              <ul>
+                <li>Clean inside appliances (microwave, fridge, oven)</li>
+                <li>Deep clean cabinet fronts and handles</li>
+                <li>Wipe inside cabinets and drawers (if empty)</li>
+                <li>Degrease backsplash and stove top thoroughly</li>
+                <li>Clean inside sink drain and garbage disposal</li>
+                <li>Pull out and clean behind/under fridge and stove (if safe)</li>
+              </ul>
+              <li><strong>Bathrooms:</strong></li>
+              <ul>
+                <li>Scrub tub, tiles, and grout</li>
+                <li>Deep clean toilet (hinges, hard-to-reach spots)</li>
+                <li>Clean inside drawers and cabinets (if empty)</li>
+                <li>Descale shower heads and faucets</li>
+                <li>Remove hard water stains and soap scum</li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+        <div id="monthlyOptions">
+          <label><input type="checkbox" id="monthlyCheckbox" /> Monthly</label>
+          <label>Number of Cleanings per Month:
+            <select id="monthlyCount" disabled>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h3>Extras</h3>
+        <label><input type="checkbox" data-extra="Outside windows" /> Outside windows</label>
+        <label><input type="checkbox" data-extra="Window wells" /> Window wells</label>
+        <label><input type="checkbox" data-extra="Garage" /> Garage</label>
+        <label><input type="checkbox" data-extra="Carpet cleaning" /> Carpet cleaning</label>
+        <label><input type="checkbox" data-extra="Laundry" /> Laundry</label>
+        <label><input type="checkbox" data-extra="Inside oven" /> Inside oven - This included in Deep Cleaning</label>
+        <label><input type="checkbox" data-extra="Baseboard cleaning" /> Baseboard cleaning - This included in Deep Cleaning</label>
+        
+        <label>Address: - This will determine if you are too far away.
+          <input type="text" id="address" placeholder="Enter address"/>
+        </label>
+      </div>
+    </section>
+
+    <section class="estimate-section">
+      <div class="estimate-box">
+        <h3>Total Estimate</h3>
+        <p><strong>$0.00</strong></p>
+        <p>Subtotal: $0.00</p>
+        <p>Service Tax (3%): $0.00</p>
+        <p>Estimated Time: 0 hr</p>
+       
+        <button id="show-breakdown">Show Cost Breakdown</button>
+        <div id="cost-breakdown" style="display: none; text-align: left; margin-top: 1rem;">
+          <h4>Cost Breakdown</h4>
+          <ul>
+            <li>Labor: $0.00</li>
+            <li>Travel & Transportation: $0.00</li>
+            <li>Insurance: $0.00</li>
+            <li>Cleaning Products: $0.00</li>
+            <li>Marketing: $0.00</li>
+            <li>Accounting & Legal Fees: $0.00</li>
+            <li>Software and Website Subscription: $0.00</li>
+            <li>Equipment Maintenance/Replacement: $0.00</li>
+            <li>Transaction Fees (3%): $0.00</li>
+            <li>Bank Fees (3%): $0.00</li>
+            <li>Office Rental: $0.00</li>
+            <li>Profit (10% of remaining): $0.00</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="booking-form">
+        <h3>Request a Booking or Final Quote</h3>
+        <label>Name: <input type="text" placeholder="John Smith" /></label>
+        <label>Phone: <input type="text" placeholder="555-123-4567" /></label>
+        <label>Email: <input type="email" placeholder="john@example.com" /></label>
+        <label>Preferred time: <input type="datetime-local" min="2025-05-11T00:00" /></label>
+        <label>Notes: <textarea placeholder="e.g., Please focus on the kitchen"></textarea></label>
+        <button>Submit Request</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

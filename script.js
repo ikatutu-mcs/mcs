@@ -6,12 +6,12 @@ const RATE_CONFIG = {
   commercialRateIncrease: 15,
   timePerBedroom: 0.55,
   timePerBathroom: 0.75,
-  timeForKitchen: 0.6,
+  timeForKitchen: 0.55,
   timeForLivingRoom: 0.5,
   timeForPets: 0.5,
   serviceTaxRate: 0.00,
   frequencyModifiers: {
-    light: 0.5,
+    light: 0.8,
     deep: 1.2,
     recurring: 0.5
   },
@@ -145,9 +145,8 @@ function calculateEstimate({
 document.addEventListener('DOMContentLoaded', function () {
   const estimateBox = document.querySelector('.estimate-box strong');
   const subtotalLine = document.querySelector('.estimate-box p:nth-child(2)');
-  const taxLine = document.querySelector('.estimate-box p:nth-child(3)');
-  const estimateTime = document.querySelector('.estimate-box p:nth-child(4)');
-  const totalEstimateLine = document.querySelector('.estimate-box p:nth-child(5)');
+  const estimateTime = document.querySelector('.estimate-box p:nth-child(3)');
+  const totalEstimateLine = document.querySelector('.estimate-box p:nth-child(4)');
   const showBreakdownButton = document.getElementById('show-breakdown');
   const costBreakdownDiv = document.getElementById('cost-breakdown');
 
@@ -236,9 +235,31 @@ document.addEventListener('DOMContentLoaded', function () {
       discountPercentage
     });
 
+    // Calculate pre-discount subtotal (sum of services before discounts, excluding tax)
+    let preDiscountPrice = 0;
+    function addPreDiscountItem(hoursCount) {
+      return hoursCount * RATE_CONFIG.cleanerRate * numberOfCleaners;
+    }
+    preDiscountPrice += addPreDiscountItem(bedrooms * RATE_CONFIG.timePerBedroom);
+    preDiscountPrice += addPreDiscountItem(bathrooms * RATE_CONFIG.timePerBathroom);
+    if (hasKitchen) preDiscountPrice += addPreDiscountItem(RATE_CONFIG.timeForKitchen);
+    if (hasLivingRoom) preDiscountPrice += addPreDiscountItem(RATE_CONFIG.timeForLivingRoom);
+    if (hasPets) preDiscountPrice += addPreDiscountItem(RATE_CONFIG.timeForPets);
+    extras.forEach(item => {
+      if (RATE_CONFIG.extrasMap.hasOwnProperty(item)) {
+        preDiscountPrice += addPreDiscountItem(RATE_CONFIG.extrasMap[item]);
+      }
+    });
+    let modifier = 1;
+    if (oneTimeType === 'light') modifier = RATE_CONFIG.frequencyModifiers.light;
+    else if (oneTimeType === 'deep') modifier = RATE_CONFIG.frequencyModifiers.deep;
+    else if (monthlyCleanings > 0) modifier = RATE_CONFIG.frequencyModifiers.recurring;
+    preDiscountPrice *= modifier;
+    preDiscountPrice += travelCost;
+    const preDiscountSubtotal = Math.round(preDiscountPrice * 100) / 100;
+
     estimateBox.textContent = `$${result.estimatedPrice.toFixed(2)}`;
-    subtotalLine.textContent = `Subtotal: $${result.subtotal.toFixed(2)}`;
-    // taxLine.textContent = `Service Tax (3%): $${result.tax.toFixed(2)}`;
+    subtotalLine.textContent = `Subtotal: $${preDiscountSubtotal.toFixed(2)}`;
     const totalMinutes = Math.round(result.estimatedHours * 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
@@ -289,23 +310,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const breakdownList = costBreakdownDiv.querySelector('ul');
     breakdownList.innerHTML = `
-      <li>Labor: $${breakdown.labor.toFixed(2)}</li>
-      <li>Travel & Transportation: $${breakdown.travelTransportation.toFixed(2)}</li>
-      <li>Insurance: $${breakdown.insurance.toFixed(2)}</li>
-      <li>Cleaning Products: $${breakdown.cleaningProducts.toFixed(2)}</li>
-      <li>Marketing: $${breakdown.marketing.toFixed(2)}</li>
-      <li>Accounting & Legal Fees: $${breakdown.accountingLegal.toFixed(2)}</li>
-      <li>Software and Website Subscription: $${breakdown.softwareWebsite.toFixed(2)}</li>
-      <li>Equipment Maintenance/Replacement: $${breakdown.equipmentMaintenance.toFixed(2)}</li>
-      <li>Transaction Fees (3%): $${breakdown.transactionFees.toFixed(2)}</li>
-      <li>Bank Fees (3%): $${breakdown.bankFees.toFixed(2)}</li>
-      <li>Office Rental: $${breakdown.officeRental.toFixed(2)}</li>
-      <li>Profit (10% of remaining): $${breakdown.profit.toFixed(2)}
-        <ul style="padding-left: 1.5rem; list-style-type: disc;">
-          <li>Emergency/Rainy Day Savings (50%): $${profitBreakdown.emergencySavings.toFixed(2)}</li>
-          <li>Business Growth Fund (50%): $${profitBreakdown.businessGrowth.toFixed(2)}</li>
-        </ul>
-      </li>
+    <li><b> Business Operation Cost: </b>
+      <ul style="padding-left: 1.5rem; list-style-type: disc;">
+        <li>Labor: $${breakdown.labor.toFixed(2)}</li>
+        <li>Travel & Transportation: $${breakdown.travelTransportation.toFixed(2)}</li>
+        <li>Insurance: $${breakdown.insurance.toFixed(2)}</li>
+        <li>Cleaning Products: $${breakdown.cleaningProducts.toFixed(2)}</li>
+        <li>Marketing: $${breakdown.marketing.toFixed(2)}</li>
+        <li>Accounting & Legal Fees: $${breakdown.accountingLegal.toFixed(2)}</li>
+        <li>Software and Website Subscription: $${breakdown.softwareWebsite.toFixed(2)}</li>
+        <li>Equipment Maintenance/Replacement: $${breakdown.equipmentMaintenance.toFixed(2)}</li>
+        <li>Transaction Fees (3%): $${breakdown.transactionFees.toFixed(2)}</li>
+        <li>Bank Fees (3%): $${breakdown.bankFees.toFixed(2)}</li>
+        <li>Office Rental: $${breakdown.officeRental.toFixed(2)}</li>
+      </ul>
+    </li>
+    <li><b>Profit (10% of remaining): $${breakdown.profit.toFixed(2)}</b>
+      <ul style="padding-left: 1.5rem; list-style-type: disc;">
+        <li>Emergency/Rainy Day Savings (50%): $${profitBreakdown.emergencySavings.toFixed(2)}</li>
+        <li>Business Growth Fund (50%): $${profitBreakdown.businessGrowth.toFixed(2)}</li>
+      </ul>
+    </li>
     `;
   }
 
@@ -313,7 +338,6 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('.booking-form button').addEventListener('click', function (e) {
     e.preventDefault();
 
-    // Collect calculator data
     const bedrooms = document.getElementById('bedrooms').value || '0';
     const bathrooms = document.getElementById('bathrooms').value || '0';
     const cleaners = document.getElementById('cleaners').value || '1';
@@ -333,7 +357,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const extrasList = extras.length > 0 ? extras.join(', ') : 'None';
     const discountOption = document.getElementById('discountOption').value || '0';
 
-    // Populate hidden form fields
     document.getElementById('form-bedrooms').value = bedrooms;
     document.getElementById('form-bathrooms').value = bathrooms;
     document.getElementById('form-cleaners').value = cleaners;
@@ -349,11 +372,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('form-extras').value = extrasList;
     document.getElementById('form-discount-option').value = `${discountOption}% (${discountOption === '0' ? 'No discount' : discountOption === '20' ? 'Family & Friend\'s Discount' : 'Promo Discount'})`;
 
-    // Collect form data
     const form = document.querySelector('.booking-form form');
     const formData = new FormData(form);
 
-    // Submit to Formspree via AJAX
     fetch(form.action, {
       method: 'POST',
       body: formData,
@@ -364,7 +385,6 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(response => {
       if (response.ok) {
         alert('Your request has been submitted successfully!');
-        // Optionally clear the form
         form.reset();
         document.querySelectorAll('.form-section input[type="checkbox"], .form-section input[type="radio"]').forEach(cb => cb.checked = false);
         updateEstimate();

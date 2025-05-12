@@ -2,7 +2,7 @@
 
 // === Rate Configuration ===
 const RATE_CONFIG = {
-  cleanerRate: 35, // Rate per cleaner per hour (for original pricing)
+  cleanerRate: 30, // Rate per cleaner per hour (for original pricing)
   commercialRateIncrease: 15,
   timePerBedroom: 0.50,
   timePerBathroom: 0.75,

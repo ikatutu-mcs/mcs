@@ -9,7 +9,7 @@ const RATE_CONFIG = {
   timeForKitchen: 0.50,
   timeForLivingRoom: 0.3,
   timeForPets: 0.5,
-  serviceTaxRate: 0.03,
+  serviceTaxRate: 0.00,
   frequencyModifiers: {
     light: 0.5,
     deep: 1.2,

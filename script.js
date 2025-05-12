@@ -11,7 +11,7 @@ const RATE_CONFIG = {
   timeForPets: 0.5,
   serviceTaxRate: 0.00,
   frequencyModifiers: {
-    light: 0.8,
+    light: 0.5,
     deep: 1.2,
     recurring: 0.5
   },

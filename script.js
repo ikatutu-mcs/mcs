@@ -11,9 +11,9 @@ const RATE_CONFIG = {
   timeForPets: 0.5,
   serviceTaxRate: 0.00,
   frequencyModifiers: {
-    light: 0.05,
+    light: 0.8,
     deep: 1.2,
-    recurring: 0.05
+    recurring: 0.5
   },
   extrasMap: {
     'Outside windows': 0.5,
@@ -69,6 +69,7 @@ function calculateEstimate({
   let hours = 0;
   let taxTotal = 0;
   let price = 0;
+  let baseSubtotal = 0; // Track the true pre-discount subtotal
 
   if (buildingType === 'Commercial') cleanerRate += RATE_CONFIG.commercialRateIncrease;
 
@@ -76,13 +77,21 @@ function calculateEstimate({
     const price = hoursCount * cleanerRate * numberOfCleaners;
     const taxedPrice = price * RATE_CONFIG.serviceTaxRate;
     taxTotal += taxedPrice;
+    baseSubtotal += price; // Add to base subtotal before tax
     return price + taxedPrice;
   }
 
   hours += bedrooms * RATE_CONFIG.timePerBedroom;
-  hours += bathrooms * RATE_CONFIG.timePerBathroom;
-  price = addItem(bedrooms * RATE_CONFIG.timePerBedroom);
-  price += addItem(bathrooms * RATE_CONFIG.timePerBathroom);
+  const wholeBathrooms = Math.floor(bathrooms);
+  const hasHalfBathroom = bathrooms - wholeBathrooms >= 0.5;
+  hours += wholeBathrooms * RATE_CONFIG.timePerBathroom;
+  if (hasHalfBathroom) {
+    hours += (RATE_CONFIG.timePerBathroom * 0.5);
+  }
+  price += addItem(wholeBathrooms * RATE_CONFIG.timePerBathroom);
+  if (hasHalfBathroom) {
+    price += addItem(RATE_CONFIG.timePerBathroom * 0.5);
+  }
 
   if (hasKitchen) {
     hours += RATE_CONFIG.timeForKitchen;
@@ -97,11 +106,6 @@ function calculateEstimate({
     price += addItem(RATE_CONFIG.timeForPets);
   }
 
-  let modifier = 1;
-  if (oneTimeType === 'light') modifier = RATE_CONFIG.frequencyModifiers.light;
-  else if (oneTimeType === 'deep') modifier = RATE_CONFIG.frequencyModifiers.deep;
-  else if (monthlyCleanings > 0) modifier = RATE_CONFIG.frequencyModifiers.recurring;
-
   extras.forEach(item => {
     if (RATE_CONFIG.extrasMap.hasOwnProperty(item)) {
       hours += RATE_CONFIG.extrasMap[item];
@@ -109,32 +113,27 @@ function calculateEstimate({
     }
   });
 
-  if (modifier !== 1) {
-    hours *= modifier;
-    price *= modifier;
-    taxTotal *= modifier;
-  }
-
   price += travelCost;
   taxTotal += travelCost * RATE_CONFIG.serviceTaxRate;
   price += travelCost * RATE_CONFIG.serviceTaxRate;
+  baseSubtotal += travelCost; // Include travel in base subtotal
 
   let recurringDiscount = 0;
   if (monthlyCleanings > 0) {
     const discountRate = RATE_CONFIG.recurringDiscounts[monthlyCleanings] || RATE_CONFIG.recurringDiscounts[4];
-    recurringDiscount = price * discountRate;
-    price -= recurringDiscount;
+    recurringDiscount = baseSubtotal * discountRate; // Apply to baseSubtotal
   }
 
-  const additionalDiscount = price * (discountPercentage / 100);
-  price -= additionalDiscount;
+  const additionalDiscount = baseSubtotal * (discountPercentage / 100); // Apply to baseSubtotal
+  const totalDiscount = recurringDiscount + additionalDiscount;
+  price -= totalDiscount;
 
   const adjustedHours = hours / numberOfCleaners;
 
   return {
     estimatedHours: Math.round(adjustedHours * 10) / 10,
     estimatedPrice: Math.round(price * 100) / 100,
-    subtotal: Math.round((price - taxTotal) * 100) / 100,
+    subtotal: Math.round(baseSubtotal * 100) / 100, // Use true pre-discount subtotal
     tax: Math.round(taxTotal * 100) / 100,
     recurringDiscount: Math.round(recurringDiscount * 100) / 100,
     additionalDiscount: Math.round(additionalDiscount * 100) / 100
@@ -146,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const estimateBox = document.querySelector('.estimate-box strong');
   const subtotalLine = document.querySelector('.estimate-box p:nth-child(2)');
   const estimateTime = document.querySelector('.estimate-box p:nth-child(3)');
+  // Use a more specific selector for totalEstimateLine
   const totalEstimateLine = document.querySelector('.estimate-box p:nth-child(4)');
   const showBreakdownButton = document.getElementById('show-breakdown');
   const costBreakdownDiv = document.getElementById('cost-breakdown');
@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (this.checked) {
       monthlyCheckbox.checked = false;
       monthlyCount.disabled = true;
+      monthlyCount.value = '0'; // Reset monthly cleanings
     }
     updateEstimate();
   });
@@ -169,6 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (this.checked) {
       oneTimeCheckbox.checked = false;
       oneTimeOptions.style.display = 'none';
+      document.querySelectorAll('input[name="oneTimeType"]').forEach(radio => radio.checked = false); // Reset one-time type
     }
     updateEstimate();
   });
@@ -196,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateEstimate() {
     const bedrooms = parseInt(document.getElementById('bedrooms').value) || 0;
-    const bathrooms = parseInt(document.getElementById('bathrooms').value) || 0;
+    const bathrooms = parseFloat(document.getElementById('bathrooms').value) || 0;
     const buildingType = document.getElementById('buildingType').value;
     const hasKitchen = document.getElementById('kitchen').checked;
     const hasLivingRoom = document.getElementById('livingRoom').checked;
@@ -238,10 +240,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // Calculate pre-discount subtotal (sum of services before discounts, excluding tax)
     let preDiscountPrice = 0;
     function addPreDiscountItem(hoursCount) {
-      return hoursCount * RATE_CONFIG.cleanerRate * numberOfCleaners;
+      let cleanerRate = RATE_CONFIG.cleanerRate;
+      if (buildingType === 'Commercial') cleanerRate += RATE_CONFIG.commercialRateIncrease;
+      return hoursCount * cleanerRate * numberOfCleaners;
     }
     preDiscountPrice += addPreDiscountItem(bedrooms * RATE_CONFIG.timePerBedroom);
-    preDiscountPrice += addPreDiscountItem(bathrooms * RATE_CONFIG.timePerBathroom);
+    const wholeBathrooms = Math.floor(bathrooms);
+    const hasHalfBathroom = bathrooms - wholeBathrooms >= 0.5;
+    preDiscountPrice += addPreDiscountItem(wholeBathrooms * RATE_CONFIG.timePerBathroom);
+    if (hasHalfBathroom) {
+      preDiscountPrice += addPreDiscountItem(RATE_CONFIG.timePerBathroom * 0.5);
+    }
     if (hasKitchen) preDiscountPrice += addPreDiscountItem(RATE_CONFIG.timeForKitchen);
     if (hasLivingRoom) preDiscountPrice += addPreDiscountItem(RATE_CONFIG.timeForLivingRoom);
     if (hasPets) preDiscountPrice += addPreDiscountItem(RATE_CONFIG.timeForPets);
@@ -250,12 +259,6 @@ document.addEventListener('DOMContentLoaded', function () {
         preDiscountPrice += addPreDiscountItem(RATE_CONFIG.extrasMap[item]);
       }
     });
-    let modifier = 1;
-    if (oneTimeType === 'light') modifier = RATE_CONFIG.frequencyModifiers.light;
-    else if (oneTimeType === 'deep') modifier = RATE_CONFIG.frequencyModifiers.deep;
-    else if (monthlyCleanings > 0) modifier = RATE_CONFIG.frequencyModifiers.recurring;
-    preDiscountPrice *= modifier;
-    preDiscountPrice += travelCost;
     const preDiscountSubtotal = Math.round(preDiscountPrice * 100) / 100;
 
     estimateBox.textContent = `$${result.estimatedPrice.toFixed(2)}`;
@@ -264,17 +267,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     estimateTime.textContent = `Estimated Time: ${hours} hour${hours !== 1 ? 's' : ''} ${minutes} minute${minutes !== 1 ? 's' : ''}`;
-    const totalEstimate = result.subtotal + result.tax;
+    const totalEstimate = preDiscountSubtotal > 0 ? preDiscountSubtotal - result.recurringDiscount - result.additionalDiscount - result.tax : 0;
 
-    if (result.recurringDiscount > 0 || result.additionalDiscount > 0) {
-      const discountLine = document.createElement('p');
-      discountLine.textContent = `Discount: -$${Math.round((result.recurringDiscount + result.additionalDiscount) * 100) / 100}.00`;
-      if (!document.querySelector('.estimate-box p.discount-line')) {
-        totalEstimateLine.parentElement.insertBefore(discountLine, totalEstimateLine);
+    // Display discount line if either discount is greater than 0 and subtotal is valid
+    if ((result.recurringDiscount > 0 || result.additionalDiscount > 0) && preDiscountSubtotal > 0) {
+      let discountLine = document.querySelector('.estimate-box p.discount-line');
+      if (!discountLine) {
+        discountLine = document.createElement('p');
         discountLine.className = 'discount-line';
-      } else {
-        document.querySelector('.estimate-box p.discount-line').textContent = `Discount: -$${Math.round((result.recurringDiscount + result.additionalDiscount) * 100) / 100}.00`;
+        totalEstimateLine.parentElement.insertBefore(discountLine, totalEstimateLine);
       }
+      discountLine.textContent = `Discount: -$${Math.round((result.recurringDiscount + result.additionalDiscount) * 100) / 100}.00`;
     } else if (document.querySelector('.estimate-box p.discount-line')) {
       document.querySelector('.estimate-box p.discount-line').remove();
     }

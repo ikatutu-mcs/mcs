@@ -17,7 +17,7 @@
     <section class="form-section">
       <div class="section-block">
         <h3>Property Info</h3>
-        <label>Bedrooms:
+        <label for="bedrooms">Bedrooms:
           <select id="bedrooms">
             <option value="0">Select</option>
             <option value="1">1</option>
@@ -28,7 +28,7 @@
             <option value="6">6</option>
           </select>
         </label>
-        <label>Bathrooms:
+        <label for="bathrooms">Bathrooms:
           <select id="bathrooms">
             <option value="0">Select</option>
             <option value="0.5">0.5</option>
@@ -45,7 +45,7 @@
             <option value="6">6</option>
           </select>
         </label>
-        <label>Number of Cleaners:
+        <label for="cleaners">Number of Cleaners:
           <select id="cleaners">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -53,16 +53,16 @@
             <option value="4">4</option>
           </select>
         </label>
-        <label><input type="checkbox" id="kitchen" /> Kitchen</label>
-        <label><input type="checkbox" id="livingRoom" /> Living Room</label>
-        <label><input type="checkbox" id="pets" /> Indoor Pet[s]?</label>
-        <label>Type of Building:
+        <label for="kitchen"><input type="checkbox" id="kitchen" /> Kitchen</label>
+        <label for="livingRoom"><input type="checkbox" id="livingRoom" /> Living Room</label>
+        <label for="pets"><input type="checkbox" id="pets" /> Indoor Pet[s]?</label>
+        <label for="buildingType">Type of Building:
           <select id="buildingType">
             <option value="Residential">Residential</option>
             <option value="Commercial">Commercial</option>
           </select>
         </label>
-        <label>Discount Option:
+        <label for="discountOption">Discount Option:
           <select id="discountOption">
             <option value="0">No discount</option>
             <option value="20">Family & Friend's Discount</option>
@@ -73,10 +73,10 @@
 
       <div class="section-block">
         <h3>Service Frequency</h3>
-        <label><input type="checkbox" id="oneTimeCheckbox" /> One-time</label>
-        <div id="oneTimeOptions" style="display: none; margin-left: 1rem;">
-          <label><input type="radio" name="oneTimeType" value="light" /> Light <button id="show-light-tasks">Show Tasks</button></label>
-          <div id="light-tasks" style="display: none; margin-left: 1rem; text-align: left;">
+        <label for="oneTimeCheckbox"><input type="checkbox" id="oneTimeCheckbox" /> One-time</label>
+        <div id="oneTimeOptions" style="display: none;">
+          <label for="oneTimeLight"><input type="radio" name="oneTimeType" id="oneTimeLight" value="light" /> Light <button id="show-light-tasks" aria-expanded="false" aria-controls="light-tasks">Show Tasks</button></label>
+          <div id="light-tasks" style="display: none;" aria-hidden="true">
             <h4>Light Cleaning Tasks</h4>
             <p>(Basic maintenance – ideal for regular upkeep or recurring visits)</p>
             <ul>
@@ -112,8 +112,8 @@
               </ul>
             </ul>
           </div>
-          <label><input type="radio" name="oneTimeType" value="deep" /> Deep <button id="show-deep-tasks">Show Tasks</button></label>
-          <div id="deep-tasks" style="display: none; margin-left: 1rem; text-align: left;">
+          <label for="oneTimeDeep"><input type="radio" name="oneTimeType" id="oneTimeDeep" value="deep" /> Deep <button id="show-deep-tasks" aria-expanded="false" aria-controls="deep-tasks">Show Tasks</button></label>
+          <div id="deep-tasks" style="display: none;" aria-hidden="true">
             <h4>🧼 Deep Cleaning Tasks</h4>
             <p>(Detailed and thorough – recommended for first-time, move-in/out, or quarterly cleaning)</p>
             <p>Includes ALL light cleaning tasks, plus:</p>
@@ -150,8 +150,8 @@
           </div>
         </div>
         <div id="monthlyOptions">
-          <label><input type="checkbox" id="monthlyCheckbox" /> Monthly</label>
-          <label>Number of Cleanings per Month:
+          <label for="monthlyCheckbox"><input type="checkbox" id="monthlyCheckbox" /> Monthly</label>
+          <label for="monthlyCount">Number of Cleanings per Month:
             <select id="monthlyCount" disabled>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -164,14 +164,14 @@
 
       <div class="section-block">
         <h3>Extras</h3>
-        <label><input type="checkbox" data-extra="Outside windows" /> Outside windows</label>
-        <label><input type="checkbox" data-extra="Window wells" /> Window wells</label>
-        <label><input type="checkbox" data-extra="Garage" /> Garage</label>
-        <label><input type="checkbox" data-extra="Carpet cleaning" /> Carpet cleaning</label>
-        <label><input type="checkbox" data-extra="Inside oven" /> Inside oven</label>
-        <label><input type="checkbox" data-extra="Baseboard cleaning" /> Baseboard cleaning</label>
-        <label><input type="checkbox" data-extra="Laundry" /> Laundry</label>
-        <label>Address:
+        <label for="outside-windows"><input type="checkbox" id="outside-windows" data-extra="Outside windows" /> Outside windows</label>
+        <label for="window-wells"><input type="checkbox" id="window-wells" data-extra="Window wells" /> Window wells</label>
+        <label for="garage"><input type="checkbox" id="garage" data-extra="Garage" /> Garage</label>
+        <label for="carpet-cleaning"><input type="checkbox" id="carpet-cleaning" data-extra="Carpet cleaning" /> Carpet cleaning</label>
+        <label for="inside-oven"><input type="checkbox" id="inside-oven" data-extra="Inside oven" /> Inside oven</label>
+        <label for="baseboard-cleaning"><input type="checkbox" id="baseboard-cleaning" data-extra="Baseboard cleaning" /> Baseboard cleaning</label>
+        <label for="laundry"><input type="checkbox" id="laundry" data-extra="Laundry" /> Laundry</label>
+        <label for="address">Address:
           <input type="text" id="address" placeholder="Enter address"/>
         </label>
       </div>
@@ -183,9 +183,9 @@
         <p><strong>$0.00</strong></p>
         <p>Subtotal: $0.00</p>
         <p>Estimated Time: 0 hr</p>
-       
-        <button id="show-breakdown">Show Cost Breakdown</button>
-        <div id="cost-breakdown" style="display: none; text-align: left; margin-top: 1rem;">
+        <!-- <p>Total Estimate Per Cleaning: $0.00</p> -->
+        <button id="show-breakdown" aria-expanded="false" aria-controls="cost-breakdown">Show Cost Breakdown</button>
+        <div id="cost-breakdown" style="display: none;" aria-hidden="true">
           <h4>Cost Breakdown</h4>
           <ul>
             <li><b> Business Operation Cost: </b>
@@ -215,12 +215,12 @@
 
       <div class="booking-form">
         <h3>Request a Booking or Final Quote</h3>
-        <form action="https://formspree.io/f/xanopboz" method="POST">
-          <label>Name: <input type="text" name="name" placeholder="John Smith" /></label>
-          <label>Phone: <input type="text" name="phone" placeholder="555-123-4567" /></label>
-          <label>Email: <input type="email" name="email" placeholder="john@example.com" required /></label>
-          <label>Preferred time: <input type="datetime-local" name="preferred_time" min="2025-05-11T00:00" /></label>
-          <label>Notes: <textarea name="notes" placeholder="e.g., Please focus on the kitchen"></textarea></label>
+        <form method="POST">
+          <label for="name">Name: <input type="text" id="name" name="name" placeholder="John Smith" /></label>
+          <label for="phone">Phone: <input type="text" id="phone" name="phone" placeholder="555-123-4567" /></label>
+          <label for="email">Email: <input type="email" id="email" name="email" placeholder="john@example.com" required /></label>
+          <label for="preferred_time">Preferred time: <input type="datetime-local" id="preferred_time" name="preferred_time" min="2025-05-11T00:00" /></label>
+          <label for="notes">Notes: <textarea id="notes" name="notes" placeholder="e.g., Please focus on the kitchen"></textarea></label>
           <!-- Hidden inputs for calculator data -->
           <input type="hidden" name="bedrooms" id="form-bedrooms" />
           <input type="hidden" name="bathrooms" id="form-bathrooms" />

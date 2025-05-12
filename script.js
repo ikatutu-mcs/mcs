@@ -11,7 +11,7 @@ const RATE_CONFIG = {
   timeForPets: 0.5,
   serviceTaxRate: 0.00,
   frequencyModifiers: {
-    light: 0.8,
+    light: 1.00,
     deep: 1.2,
     recurring: 0.5
   },
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
         discountLine.className = 'discount-line';
         totalEstimateLine.parentElement.insertBefore(discountLine, totalEstimateLine);
       }
-      discountLine.innerHTML = `<span class="discount-icon">🏷️</span>Discount: -$${(result.recurringDiscount + result.additionalDiscount).toFixed(2)}`;
+      discountLine.innerHTML = `<i class="fa-solid fa-tag discount-icon"></i>Discount: -$${(result.recurringDiscount + result.additionalDiscount).toFixed(2)}`;
     } else if (document.querySelector('.estimate-box p.discount-line')) {
       document.querySelector('.estimate-box p.discount-line').remove();
     }
@@ -352,36 +352,36 @@ document.addEventListener('DOMContentLoaded', function () {
     const address = document.getElementById('address').value.trim();
 
     if (bedrooms === 0) {
-      alert('Please select at least one bedroom.');
+      alert('Whoops! Please select at least one bedroom.');
       document.getElementById('bedrooms').classList.add('invalid');
       return;
     } else {
       document.getElementById('bedrooms').classList.remove('invalid');
     }
     if (bathrooms === 0) {
-      alert('Please select at least one bathroom.');
+      alert('Whoops! Please select at least one bathroom.');
       document.getElementById('bathrooms').classList.add('invalid');
       return;
     } else {
       document.getElementById('bathrooms').classList.remove('invalid');
     }
     if (!oneTimeChecked && !monthlyChecked) {
-      alert('Please select a service frequency (One-time or Monthly).');
+      alert('Please choose a service frequency (One-time or Monthly) to continue.');
       return;
     }
     if (oneTimeChecked && !oneTimeType) {
-      alert('Please select a cleaning type (Light or Deep).');
+      alert('Please select a cleaning type (Light or Deep) for your one-time service.');
       return;
     }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      alert('Please provide a valid email address.');
+      alert('Please provide a valid email address so we can reach you.');
       document.getElementById('email').classList.add('invalid');
       return;
     } else {
       document.getElementById('email').classList.remove('invalid');
     }
     if (!address) {
-      alert('Please provide a valid address.');
+      alert('Please provide an address for your cleaning service.');
       document.getElementById('address').classList.add('invalid');
       return;
     } else {
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(response => {
       if (response.ok) {
-        alert('Your request has been submitted successfully!');
+        alert('Awesome! Your quote request has been sent. We’ll get back to you soon!');
         form.reset();
         document.querySelectorAll('.form-section input[type="checkbox"], .form-section input[type="radio"]').forEach(cb => cb.checked = false);
         updateEstimate();
@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     })
     .catch(error => {
-      alert('There was an error submitting your request. Please try again later.');
+      alert('Oh no! Something went wrong. Please try again or contact us directly.');
       console.error('Form submission error:', error);
     });
   });

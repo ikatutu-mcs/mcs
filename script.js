@@ -2,14 +2,18 @@
 
 // === Rate Configuration ===
 const RATE_CONFIG = {
+<<<<<<< HEAD
   cleanerRate: 35,
+=======
+  cleanerRate: 30, // Rate per cleaner per hour (for original pricing)
+>>>>>>> da14d45b6c270e45b1fc0fc6b9ac78bf62ec4fc6
   commercialRateIncrease: 15,
   timePerBedroom: 0.50,
   timePerBathroom: 0.75,
-  timeForKitchen: 0.50,
-  timeForLivingRoom: 0.3,
+  timeForKitchen: 0.60,
+  timeForLivingRoom: 0.5,
   timeForPets: 0.5,
-  serviceTaxRate: 0.03,
+  serviceTaxRate: 0.00,
   frequencyModifiers: {
     light: 0.5,
     deep: 1.2,
@@ -238,7 +242,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     estimateBox.textContent = `$${result.estimatedPrice.toFixed(2)}`;
     subtotalLine.textContent = `Subtotal: $${result.subtotal.toFixed(2)}`;
+<<<<<<< HEAD
     taxLine.textContent = `Service Tax (3%): $${result.tax.toFixed(2)}`;
+=======
+    //taxLine.textContent = `Service Tax (3%): $${result.tax.toFixed(2)}`;
+    // Format estimated time to hours and minutes
+>>>>>>> da14d45b6c270e45b1fc0fc6b9ac78bf62ec4fc6
     const totalMinutes = Math.round(result.estimatedHours * 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;

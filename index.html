@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-    <img src="https://github.com/ikatutu-mcs/mcs/blob/main/images/mcs_logo.png" alt="Mauri Cleaning Solutions Logo" class="logo">
+    <img src="images/mcs_logo.png" alt="Mauri Cleaning Solutions Logo" class="logo">
     <h2>Cleaning Estimate Calculator</h2>
   </header>
 
@@ -162,11 +162,10 @@
         <label><input type="checkbox" data-extra="Window wells" /> Window wells</label>
         <label><input type="checkbox" data-extra="Garage" /> Garage</label>
         <label><input type="checkbox" data-extra="Carpet cleaning" /> Carpet cleaning</label>
+        <label><input type="checkbox" data-extra="Inside oven" /> Inside oven</label>
+        <label><input type="checkbox" data-extra="Baseboard cleaning" /> Baseboard cleaning</label>
         <label><input type="checkbox" data-extra="Laundry" /> Laundry</label>
-        <label><input type="checkbox" data-extra="Inside oven" /> Inside oven - This included in Deep Cleaning</label>
-        <label><input type="checkbox" data-extra="Baseboard cleaning" /> Baseboard cleaning - This included in Deep Cleaning</label>
-        
-        <label>Address: - This will determine if you are too far away.
+        <label>Address:
           <input type="text" id="address" placeholder="Enter address"/>
         </label>
       </div>
@@ -177,7 +176,7 @@
         <h3>Total Estimate</h3>
         <p><strong>$0.00</strong></p>
         <p>Subtotal: $0.00</p>
-        <p>Service Tax and Transaction fee (3%): $0.00</p>
+        <p>Service Tax (3%): $0.00</p>
         <p>Estimated Time: 0 hr</p>
        
         <button id="show-breakdown">Show Cost Breakdown</button>
@@ -202,12 +201,29 @@
 
       <div class="booking-form">
         <h3>Request a Booking or Final Quote</h3>
-        <label>Name: <input type="text" placeholder="John Smith" /></label>
-        <label>Phone: <input type="text" placeholder="555-123-4567" /></label>
-        <label>Email: <input type="email" placeholder="john@example.com" /></label>
-        <label>Preferred time: <input type="datetime-local" min="2025-05-11T00:00" /></label>
-        <label>Notes: <textarea placeholder="e.g., Please focus on the kitchen"></textarea></label>
-        <button>Submit Request</button>
+        <form action="https://formspree.io/f/xanopboz" method="POST">
+          <label>Name: <input type="text" name="name" placeholder="John Smith" /></label>
+          <label>Phone: <input type="text" name="phone" placeholder="555-123-4567" /></label>
+          <label>Email: <input type="email" name="email" placeholder="john@example.com" required /></label>
+          <label>Preferred time: <input type="datetime-local" name="preferred_time" min="2025-05-11T00:00" /></label>
+          <label>Notes: <textarea name="notes" placeholder="e.g., Please focus on the kitchen"></textarea></label>
+          <!-- Hidden inputs for calculator data -->
+          <input type="hidden" name="bedrooms" id="form-bedrooms" />
+          <input type="hidden" name="bathrooms" id="form-bathrooms" />
+          <input type="hidden" name="cleaners" id="form-cleaners" />
+          <input type="hidden" name="kitchen" id="form-kitchen" />
+          <input type="hidden" name="living_room" id="form-living-room" />
+          <input type="hidden" name="pets" id="form-pets" />
+          <input type="hidden" name="building_type" id="form-building-type" />
+          <input type="hidden" name="one_time" id="form-one-time" />
+          <input type="hidden" name="one_time_type" id="form-one-time-type" />
+          <input type="hidden" name="monthly" id="form-monthly" />
+          <input type="hidden" name="monthly_count" id="form-monthly-count" />
+          <input type="hidden" name="address" id="form-address" />
+          <input type="hidden" name="extras" id="form-extras" />
+          <input type="hidden" name="discount_option" id="form-discount-option" />
+          <button type="submit">Submit Request</button>
+        </form>
       </div>
     </section>
   </main>

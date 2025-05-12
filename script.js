@@ -2,7 +2,7 @@
 
 // === Rate Configuration ===
 const RATE_CONFIG = {
-  cleanerRate: 35, // Rate per cleaner per hour (for original pricing)
+  cleanerRate: 35,
   commercialRateIncrease: 15,
   timePerBedroom: 0.50,
   timePerBathroom: 0.75,
@@ -16,12 +16,12 @@ const RATE_CONFIG = {
     recurring: 0.5
   },
   extrasMap: {
-    'Outside windows': 1.5,
-    'Window wells': 1.5,
-    'Garage': 1.5,
-    'Carpet cleaning': 1.5,
+    'Outside windows': 0.5,
+    'Window wells': 0.5,
+    'Garage': 1,
+    'Carpet cleaning': 1,
     'Inside oven': 0.5,
-    'Baseboard cleaning': 0.01,
+    'Baseboard cleaning': 0.75,
     'Laundry': 0.5
   },
   defaultBuildingType: 'Residential',
@@ -31,24 +31,23 @@ const RATE_CONFIG = {
     3: 0.20,
     4: 0.25
   },
-  // Configurable expense percentages (sum to 0.90 or 90% for non-labor expenses)
   expensePercentages: {
-    travelTransportation: 0.05, // 5% of 90%
-    insurance: 0.10, // 10% of 90%
-    cleaningProducts: 0.30, // 30% of 90%
-    marketing: 0.10, // 10% of 90%
-    accountingLegal: 0.10, // 10% of 90%
-    softwareWebsite: 0.05, // 5% of 90%
-    equipmentMaintenance: 0.05, // 5% of 90% (corrected typo from 'expansePercentages' to 'expensePercentages')
-    transactionFees: 0.03, // 3% of 90%
-    bankFees: 0.03, // 3% of 90%
-    officeRental: 0.14 // 14% of 90%
+    travelTransportation: 0.05,
+    insurance: 0.10,
+    cleaningProducts: 0.30,
+    marketing: 0.10,
+    accountingLegal: 0.10,
+    softwareWebsite: 0.05,
+    equipmentMaintenance: 0.05,
+    transactionFees: 0.03,
+    bankFees: 0.03,
+    officeRental: 0.14
   },
-  profitMargin: 0.10, // 10% of total estimate
+  profitMargin: 0.10,
   laborRates: {
-    default: 15, // Labor rate for recurring services
-    light: 10,  // Labor rate for light cleaning (one-time)
-    deep: 20    // Labor rate for deep cleaning (one-time)
+    default: 20,
+    light: 15,
+    deep: 25
   }
 };
 
@@ -120,7 +119,6 @@ function calculateEstimate({
   taxTotal += travelCost * RATE_CONFIG.serviceTaxRate;
   price += travelCost * RATE_CONFIG.serviceTaxRate;
 
-  // Apply discount for recurring services
   let recurringDiscount = 0;
   if (monthlyCleanings > 0) {
     const discountRate = RATE_CONFIG.recurringDiscounts[monthlyCleanings] || RATE_CONFIG.recurringDiscounts[4];
@@ -128,11 +126,9 @@ function calculateEstimate({
     price -= recurringDiscount;
   }
 
-  // Apply additional discount from dropdown
   const additionalDiscount = price * (discountPercentage / 100);
   price -= additionalDiscount;
 
-  // Adjust hours based on number of cleaners
   const adjustedHours = hours / numberOfCleaners;
 
   return {
@@ -160,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const monthlyCheckbox = document.getElementById('monthlyCheckbox');
   const monthlyCount = document.getElementById('monthlyCount');
 
-  // Toggle one-time options visibility
   oneTimeCheckbox.addEventListener('change', function () {
     oneTimeOptions.style.display = this.checked ? 'block' : 'none';
     if (this.checked) {
@@ -170,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateEstimate();
   });
 
-  // Toggle monthly count select
   monthlyCheckbox.addEventListener('change', function () {
     monthlyCount.disabled = !this.checked;
     if (this.checked) {
@@ -180,27 +174,23 @@ document.addEventListener('DOMContentLoaded', function () {
     updateEstimate();
   });
 
-  // Toggle cost breakdown visibility
   showBreakdownButton.addEventListener('click', function () {
     costBreakdownDiv.style.display = costBreakdownDiv.style.display === 'none' ? 'block' : 'none';
     showBreakdownButton.textContent = costBreakdownDiv.style.display === 'none' ? 'Show Cost Breakdown' : 'Hide Cost Breakdown';
   });
 
-  // Toggle task list visibility for Light Cleaning
   document.getElementById('show-light-tasks').addEventListener('click', function () {
     const lightTasks = document.getElementById('light-tasks');
     lightTasks.style.display = lightTasks.style.display === 'none' ? 'block' : 'none';
     this.textContent = lightTasks.style.display === 'none' ? 'Show Tasks' : 'Hide Tasks';
   });
 
-  // Toggle task list visibility for Deep Cleaning
   document.getElementById('show-deep-tasks').addEventListener('click', function () {
     const deepTasks = document.getElementById('deep-tasks');
     deepTasks.style.display = deepTasks.style.display === 'none' ? 'block' : 'none';
     this.textContent = deepTasks.style.display === 'none' ? 'Show Tasks' : 'Hide Tasks';
   });
 
-  // Update estimate on input change
   document.querySelectorAll('input, select').forEach(el => {
     el.addEventListener('change', updateEstimate);
   });
@@ -246,18 +236,15 @@ document.addEventListener('DOMContentLoaded', function () {
       discountPercentage
     });
 
-    // Update all estimate values
     estimateBox.textContent = `$${result.estimatedPrice.toFixed(2)}`;
     subtotalLine.textContent = `Subtotal: $${result.subtotal.toFixed(2)}`;
     taxLine.textContent = `Service Tax (3%): $${result.tax.toFixed(2)}`;
-    // Format estimated time to hours and minutes
     const totalMinutes = Math.round(result.estimatedHours * 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     estimateTime.textContent = `Estimated Time: ${hours} hour${hours !== 1 ? 's' : ''} ${minutes} minute${minutes !== 1 ? 's' : ''}`;
     const totalEstimate = result.subtotal + result.tax;
 
-    // Display the discount above the total estimate
     if (result.recurringDiscount > 0 || result.additionalDiscount > 0) {
       const discountLine = document.createElement('p');
       discountLine.textContent = `Discount: -$${Math.round((result.recurringDiscount + result.additionalDiscount) * 100) / 100}.00`;
@@ -271,21 +258,19 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelector('.estimate-box p.discount-line').remove();
     }
 
-    // Update the final total estimate
     totalEstimateLine.textContent = `Total Estimate Per Cleaning: $${Math.round(totalEstimate * 100) / 100}.00`;
 
-    // Calculate and update cost breakdown
-    const laborRate = monthlyCleanings > 0 ? RATE_CONFIG.laborRates.default : // Use default for recurring
+    const laborRate = monthlyCleanings > 0 ? RATE_CONFIG.laborRates.default :
                      oneTimeType === 'light' ? RATE_CONFIG.laborRates.light :
                      oneTimeType === 'deep' ? RATE_CONFIG.laborRates.deep :
-                     RATE_CONFIG.laborRates.default; // Fallback to default if no selection
-    const laborCost = laborRate * result.estimatedHours * numberOfCleaners; // Static labor cost
-    const remainingAmount = totalEstimate - laborCost; // Remaining amount after labor
-    const totalExpenses = remainingAmount * 0.90; // 90% of remaining amount
-    const profit = remainingAmount * 0.10; // 10% of remaining amount
+                     RATE_CONFIG.laborRates.default;
+    const laborCost = laborRate * result.estimatedHours * numberOfCleaners;
+    const remainingAmount = totalEstimate - laborCost;
+    const totalExpenses = remainingAmount * 0.90;
+    const profit = remainingAmount * 0.10;
     const profitBreakdown = {
-      emergencySavings: profit * 0.5, // 50% of profit
-      businessGrowth: profit * 0.5 // 50% of profit
+      emergencySavings: profit * 0.5,
+      businessGrowth: profit * 0.5
     };
     const breakdown = {
       labor: laborCost,
@@ -302,11 +287,8 @@ document.addEventListener('DOMContentLoaded', function () {
       profit: profit
     };
 
-    // Update cost breakdown display with profit sub-breakdown
     const breakdownList = costBreakdownDiv.querySelector('ul');
     breakdownList.innerHTML = `
-    <li><b>Business Operation Cost</b></li>
-     <ul style="padding-left: 1.5rem; list-style-type: disc;">
       <li>Labor: $${breakdown.labor.toFixed(2)}</li>
       <li>Travel & Transportation: $${breakdown.travelTransportation.toFixed(2)}</li>
       <li>Insurance: $${breakdown.insurance.toFixed(2)}</li>
@@ -318,8 +300,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <li>Transaction Fees (3%): $${breakdown.transactionFees.toFixed(2)}</li>
       <li>Bank Fees (3%): $${breakdown.bankFees.toFixed(2)}</li>
       <li>Office Rental: $${breakdown.officeRental.toFixed(2)}</li>
-      </ul>
-      <li><b>Business Growth - Profit (10% of remaining):</b> $${breakdown.profit.toFixed(2)}
+      <li>Profit (10% of remaining): $${breakdown.profit.toFixed(2)}
         <ul style="padding-left: 1.5rem; list-style-type: disc;">
           <li>Emergency/Rainy Day Savings (50%): $${profitBreakdown.emergencySavings.toFixed(2)}</li>
           <li>Business Growth Fund (50%): $${profitBreakdown.businessGrowth.toFixed(2)}</li>
@@ -328,17 +309,11 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
   }
 
-  // Handle submit request
+  // Handle form submission with Formspree via AJAX
   document.querySelector('.booking-form button').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent default button behavior
+    e.preventDefault();
 
-    // Collect form data
-    const name = document.querySelector('.booking-form input[type="text"]:nth-child(2)').value || 'Not provided';
-    const phone = document.querySelector('.booking-form input[type="text"]:nth-child(4)').value || 'Not provided';
-    const email = document.querySelector('.booking-form input[type="email"]').value || 'Not provided';
-    const preferredTime = document.querySelector('.booking-form input[type="datetime-local"]').value || 'Not provided';
-    const notes = document.querySelector('.booking-form textarea').value || 'No notes';
-
+    // Collect calculator data
     const bedrooms = document.getElementById('bedrooms').value || '0';
     const bathrooms = document.getElementById('bathrooms').value || '0';
     const cleaners = document.getElementById('cleaners').value || '1';
@@ -358,48 +333,49 @@ document.addEventListener('DOMContentLoaded', function () {
     const extrasList = extras.length > 0 ? extras.join(', ') : 'None';
     const discountOption = document.getElementById('discountOption').value || '0';
 
-    // Format the email body
-    const subject = 'New Cleaning Request from Website';
-    const body = `
-      New Cleaning Request Submitted on ${new Date().toLocaleString()}
+    // Populate hidden form fields
+    document.getElementById('form-bedrooms').value = bedrooms;
+    document.getElementById('form-bathrooms').value = bathrooms;
+    document.getElementById('form-cleaners').value = cleaners;
+    document.getElementById('form-kitchen').value = kitchen;
+    document.getElementById('form-living-room').value = livingRoom;
+    document.getElementById('form-pets').value = pets;
+    document.getElementById('form-building-type').value = buildingType;
+    document.getElementById('form-one-time').value = oneTimeCheckbox;
+    document.getElementById('form-one-time-type').value = oneTimeType;
+    document.getElementById('form-monthly').value = monthlyCheckbox;
+    document.getElementById('form-monthly-count').value = monthlyCount;
+    document.getElementById('form-address').value = address;
+    document.getElementById('form-extras').value = extrasList;
+    document.getElementById('form-discount-option').value = `${discountOption}% (${discountOption === '0' ? 'No discount' : discountOption === '20' ? 'Family & Friend\'s Discount' : 'Promo Discount'})`;
 
-      **Booking Details:**
-      Name: ${name}
-      Phone: ${phone}
-      Email: ${email}
-      Preferred Time: ${preferredTime}
-      Notes: ${notes}
+    // Collect form data
+    const form = document.querySelector('.booking-form form');
+    const formData = new FormData(form);
 
-      **Property Info:**
-      Bedrooms: ${bedrooms}
-      Bathrooms: ${bathrooms}
-      Number of Cleaners: ${cleaners}
-      Kitchen: ${kitchen}
-      Living Room: ${livingRoom}
-      Pets: ${pets}
-      Building Type: ${buildingType}
-      Address: ${address}
-      Discount Option: ${discountOption}% (${discountOption === '0' ? 'No discount' : discountOption === '20' ? 'Family & Friend\'s Discount' : 'Promo Discount'})
-
-      **Service Frequency:**
-      One-time: ${oneTimeCheckbox}
-      One-time Type: ${oneTimeType}
-      Monthly: ${monthlyCheckbox}
-      Monthly Cleanings: ${monthlyCount}
-
-      **Extras:**
-      ${extrasList}
-    `.trim().replace(/\n/g, '%0D%0A'); // Convert newlines to URL-encoded format for mailto
-
-    // Open email client with pre-filled data
-    window.location.href = `mailto:ikatutu.mcs@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-    // Notify user
-    alert('Your request has been submitted! Please check your email client to send the request.');
-
-    // Optional: Clear the form (uncomment if desired)
-    // document.querySelectorAll('.booking-form input, .booking-form textarea').forEach(input => input.value = '');
-    // document.querySelectorAll('.form-section input[type="checkbox"], .form-section input[type="radio"]').forEach(cb => cb.checked = false);
+    // Submit to Formspree via AJAX
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Your request has been submitted successfully!');
+        // Optionally clear the form
+        form.reset();
+        document.querySelectorAll('.form-section input[type="checkbox"], .form-section input[type="radio"]').forEach(cb => cb.checked = false);
+        updateEstimate();
+      } else {
+        throw new Error('Submission failed');
+      }
+    })
+    .catch(error => {
+      alert('There was an error submitting your request. Please try again later.');
+      console.error('Form submission error:', error);
+    });
   });
 
   // Initial estimate

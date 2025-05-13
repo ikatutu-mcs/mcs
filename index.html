@@ -26,14 +26,14 @@
   </header>
 
   <main class="container">
-    <section class="hero-section fade-in">
+    <section class="hero-section">
       <h1>Welcome to Mauri Cleaning Solutions</h1>
       <p class="hero-tagline">Your Trusted Partner for a Spotless Space</p>
       <p>We provide top-quality cleaning services tailored to your needs, using eco-friendly products to ensure a safe and sparkling environment.</p>
       <a href="calculator.html" class="gradient-button hero-button">Get a Free Quote</a>
     </section>
 
-    <section class="services-overview fade-in">
+    <section class="services-overview">
       <h2>Our Cleaning Services</h2>
       <p class="section-tagline">Explore Our Range of Professional Cleaning Solutions</p>
       <div class="services-grid">
@@ -61,7 +61,7 @@
       </div>
     </section>
 
-    <section class="cta-section fade-in">
+    <section class="cta-section">
       <h2>Ready to Get Started?</h2>
       <p>Let us take care of your cleaning needs—get a personalized quote today!</p>
       <a href="calculator.html" class="gradient-button cta-button">Get Your Quote Now</a>
@@ -71,5 +71,16 @@
   <footer>
     <p>© 2025 Mauri Cleaning Solutions. All rights reserved.</p>
   </footer>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
 </body>
 </html>

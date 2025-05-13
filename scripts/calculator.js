@@ -27,9 +27,9 @@ const RATE_CONFIG = {
   defaultBuildingType: 'Residential',
   recurringDiscounts: {
     1: 0.10,
-    2: 0.15,
-    3: 0.20,
-    4: 0.25
+    2: 0.20,
+    3: 0.30,
+    4: 0.40
   },
   expensePercentages: {
     travelTransportation: 0.05,

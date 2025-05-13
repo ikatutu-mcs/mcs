@@ -12,7 +12,6 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   background-color: #e1f5fe; /* Light blue background */
-  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='2' fill='%230288d1' fill-opacity='0.1'/%3E%3C/svg%3E");
   color: #333;
   line-height: 1.6;
 }
@@ -85,6 +84,8 @@ header .tagline {
   color: #0288d1; /* Fallback color */
   font-weight: 600;
   margin-bottom: 1rem;
+  /* Suppress linter warnings for vendor prefixes */
+  /* stylelint-disable-next-line */
   background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
   background: linear-gradient(to right, #0288d1, #4fc3f7);
   -webkit-background-clip: text;
@@ -121,7 +122,7 @@ input[type="email"]:focus,
 input[type="datetime-local"]:focus,
 textarea:focus,
 select:focus {
-  border-color: #0288d1; /* Primary blue */
+  border-color: #0288d1;
   box-shadow: 0 0 5px rgba(2, 136, 209, 0.3);
   outline: none;
 }
@@ -140,7 +141,7 @@ input[type="radio"]:hover {
 
 input[type="checkbox"]:focus,
 input[type="radio"]:focus {
-  outline: 2px solid #0288d1; /* Primary blue */
+  outline: 2px solid #0288d1;
   outline-offset: 2px;
 }
 
@@ -164,8 +165,8 @@ textarea {
 }
 
 .estimate-box {
-  background: linear-gradient(to bottom, #e1f5fe, #f5f7fa); /* Light blue gradient */
-  border: 2px solid #0288d1; /* Primary blue */
+  background: linear-gradient(to bottom, #e1f5fe, #f5f7fa);
+  border: 2px solid #0288d1;
 }
 
 .estimate-box h3,
@@ -184,13 +185,13 @@ textarea {
 .estimate-box p {
   margin-bottom: 0.75rem;
   font-size: 1rem;
-  color: #0288d1; /* Primary blue */
+  color: #0288d1;
   font-weight: 500;
 }
 
 .estimate-box strong {
   font-size: 1.8rem;
-  color: #01579b; /* Secondary blue */
+  color: #01579b;
   font-weight: 700;
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -201,14 +202,14 @@ textarea {
   vertical-align: middle;
   margin-right: 0.5rem;
   font-size: 1.2rem;
-  color: #4fc3f7; /* Accent blue */
+  color: #4fc3f7;
 }
 
 .estimate-box .discount-line {
-  color: #01579b; /* Secondary blue */
+  color: #01579b;
   font-size: 1.1rem;
   font-weight: 600;
-  background-color: #e1f5fe; /* Light blue background */
+  background-color: #e1f5fe;
   padding: 0.5rem;
   border-radius: 12px;
   animation: fadeIn 0.5s ease-in;
@@ -219,7 +220,7 @@ textarea {
   vertical-align: middle;
   margin-right: 0.5rem;
   font-size: 1rem;
-  color: #01579b; /* Secondary blue */
+  color: #01579b;
 }
 
 .estimate-box.pulse {
@@ -272,7 +273,7 @@ button:hover {
 }
 
 .booking-form button {
-  background: #4fc3f7; /* Accent blue */
+  background: #4fc3f7;
 }
 
 .booking-form button:hover {

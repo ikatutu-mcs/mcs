@@ -23,11 +23,11 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  .header-content {
+  /* .header-content {
     text-align: center;
     max-width: 1200px;
     margin: 0 auto;
-  }
+  } */
   
   /* .header-content {
     display: flex;
@@ -87,7 +87,7 @@
     left: 0;
   }
   
-  .header-text {
+  /* .header-text {
     text-align: center;
     flex-grow: 1;
   }
@@ -98,14 +98,14 @@
     color: #0288d1;
     font-weight: 600;
     margin-bottom: 0.3rem;
-  }
+  } */
   
-  header .tagline {
+  /* header .tagline {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1rem;
     color: #666;
     font-weight: 400;
-  }
+  } */
   
   /* Main container */
   .container {

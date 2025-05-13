@@ -101,13 +101,13 @@ header .logo.bounce {
   width: 100%;
 }
 
-.header-text {
+.title {
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
   /* font-size: 1.8rem; */
-  color: #0288d1;
+  color: #045796;
   /* font-weight: 600; */
-  margin-bottom: 0.3rem;
+  /* margin-bottom: 0.3rem; */
 }
 
 header h2 {

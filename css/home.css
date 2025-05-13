@@ -4,7 +4,7 @@
 .hero-section {
     text-align: center;
     padding: 4rem 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/image3.jpg') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/image2.jpg') no-repeat center center/cover;
     background-attachment: fixed; /* Parallax effect */
     border-radius: 12px;
     color: #ffffff;

@@ -11,11 +11,8 @@
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  background-color: #e6f4f3; /* Light tint of logo blue (#26a69a) */
-  /* Alternative for deeper blue (#1976d2): #e3f2fd */
-  /* Alternative for lighter blue (#4fc3f7): #e1f5fe */
-  /* Fixed background-image URL encoding */
-  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='2' fill='%2326a69a' fill-opacity='0.1'/%3E%3C/svg%3E");
+  background-color: #e1f5fe; /* Light blue background */
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='2' fill='%230288d1' fill-opacity='0.1'/%3E%3C/svg%3E");
   color: #333;
   line-height: 1.6;
 }
@@ -41,8 +38,7 @@ header .logo.bounce {
 header h2 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.8rem;
-  color: #26a69a; /* Matches logo blue */
-  /* Alternative: #1976d2 or #4fc3f7 */
+  color: #0288d1; /* Primary blue */
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -86,13 +82,11 @@ header .tagline {
 .section-block h3 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.3rem;
-  color: #26a69a; /* Fallback color for unsupported browsers */
+  color: #0288d1; /* Fallback color */
   font-weight: 600;
   margin-bottom: 1rem;
-  background: linear-gradient(to right, #26a69a, #4fc3f7);
-  /* Added vendor prefix for older browsers */
-  background: -webkit-linear-gradient(to right, #26a69a, #4fc3f7);
-  background: linear-gradient(to right, #26a69a, #4fc3f7);
+  background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+  background: linear-gradient(to right, #0288d1, #4fc3f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -127,8 +121,8 @@ input[type="email"]:focus,
 input[type="datetime-local"]:focus,
 textarea:focus,
 select:focus {
-  border-color: #26a69a;
-  box-shadow: 0 0 5px rgba(38, 166, 154, 0.3);
+  border-color: #0288d1; /* Primary blue */
+  box-shadow: 0 0 5px rgba(2, 136, 209, 0.3);
   outline: none;
 }
 
@@ -146,7 +140,7 @@ input[type="radio"]:hover {
 
 input[type="checkbox"]:focus,
 input[type="radio"]:focus {
-  outline: 2px solid #26a69a;
+  outline: 2px solid #0288d1; /* Primary blue */
   outline-offset: 2px;
 }
 
@@ -170,8 +164,8 @@ textarea {
 }
 
 .estimate-box {
-  background: linear-gradient(to bottom, #e6f0fa, #f5f7fa);
-  border: 2px solid #26a69a;
+  background: linear-gradient(to bottom, #e1f5fe, #f5f7fa); /* Light blue gradient */
+  border: 2px solid #0288d1; /* Primary blue */
 }
 
 .estimate-box h3,
@@ -190,13 +184,13 @@ textarea {
 .estimate-box p {
   margin-bottom: 0.75rem;
   font-size: 1rem;
-  color: #26a69a;
+  color: #0288d1; /* Primary blue */
   font-weight: 500;
 }
 
 .estimate-box strong {
   font-size: 1.8rem;
-  color: #27ae60;
+  color: #01579b; /* Secondary blue */
   font-weight: 700;
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -207,14 +201,14 @@ textarea {
   vertical-align: middle;
   margin-right: 0.5rem;
   font-size: 1.2rem;
-  color: #f4d03f;
+  color: #4fc3f7; /* Accent blue */
 }
 
 .estimate-box .discount-line {
-  color: #27ae60;
+  color: #01579b; /* Secondary blue */
   font-size: 1.1rem;
   font-weight: 600;
-  background-color: #e8f5e9;
+  background-color: #e1f5fe; /* Light blue background */
   padding: 0.5rem;
   border-radius: 12px;
   animation: fadeIn 0.5s ease-in;
@@ -225,7 +219,7 @@ textarea {
   vertical-align: middle;
   margin-right: 0.5rem;
   font-size: 1rem;
-  color: #27ae60;
+  color: #01579b; /* Secondary blue */
 }
 
 .estimate-box.pulse {
@@ -259,8 +253,8 @@ textarea {
 }
 
 button {
-  background: -webkit-linear-gradient(to right, #26a69a, #4fc3f7);
-  background: linear-gradient(to right, #26a69a, #4fc3f7);
+  background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+  background: linear-gradient(to right, #0288d1, #4fc3f7);
   color: #ffffff;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -272,17 +266,17 @@ button {
 }
 
 button:hover {
-  background: -webkit-linear-gradient(to right, #4fc3f7, #26a69a);
-  background: linear-gradient(to right, #4fc3f7, #26a69a);
+  background: -webkit-linear-gradient(to right, #4fc3f7, #0288d1);
+  background: linear-gradient(to right, #4fc3f7, #0288d1);
   transform: scale(1.05);
 }
 
 .booking-form button {
-  background: #f4d03f;
+  background: #4fc3f7; /* Accent blue */
 }
 
 .booking-form button:hover {
-  background: #e4c02f;
+  background: #29b6f6;
   transform: scale(1.05);
 }
 

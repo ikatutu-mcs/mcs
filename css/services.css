@@ -1,4 +1,4 @@
-/* default.css */
+/* services.css */
 
 /* Reset default styles */
 * {
@@ -14,13 +14,6 @@
     background-color: #e1f5fe; /* Light blue background */
     color: #333;
     line-height: 1.6;
-  }
-  
-  /* Main container */
-  .container {
-    max-width: 1200px;
-    margin: 2.5rem auto;
-    padding: 0 1.5rem;
   }
   
   /* Header styling */
@@ -107,8 +100,48 @@
     font-weight: 400;
   }
   
-  /* Card styling (shared for products, services, etc.) */
-  .card {
+  /* Main container */
+  .container {
+    max-width: 1200px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* Store link section */
+  .store-link {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .store-button {
+    display: inline-block;
+    background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+    background: linear-gradient(to right, #0288d1, #4fc3f7);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .store-button:hover {
+    background: -webkit-linear-gradient(to right, #4fc3f7, #0288d1);
+    background: linear-gradient(to right, #4fc3f7, #0288d1);
+    transform: scale(1.05);
+  }
+  
+  /* Services grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+  }
+  
+  .service-card {
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -117,12 +150,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .card:hover {
+  .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   }
   
-  .card h3 {
+  .service-card h3 {
     font-family: 'Poppins', sans-serif;
     font-size: 1.2rem;
     color: #0288d1;
@@ -133,7 +166,7 @@
     line-height: 1.3;
   }
   
-  .card p {
+  .service-card p {
     font-size: 0.95rem;
     color: #666;
     margin-bottom: 1rem;
@@ -142,8 +175,7 @@
     line-height: 1.4;
   }
   
-  /* Gradient button (shared for "Get a Quote", "Buy Now", etc.) */
-  .gradient-button {
+  .quote-button {
     display: inline-block;
     background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
     background: linear-gradient(to right, #0288d1, #4fc3f7);
@@ -155,7 +187,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
   }
   
-  .gradient-button:hover {
+  .quote-button:hover {
     background: -webkit-linear-gradient(to right, #4fc3f7, #0288d1);
     background: linear-gradient(to right, #4fc3f7, #0288d1);
     transform: scale(1.05);
@@ -218,12 +250,13 @@
       font-size: 1.4rem;
     }
   
-    header .tagline {
+    .store-button {
+      padding: 0.6rem 1rem;
       font-size: 0.95rem;
     }
   
-    .gradient-button {
-      padding: 0.6rem 1rem;
-      font-size: 0.95rem;
+    .services-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
     }
   }

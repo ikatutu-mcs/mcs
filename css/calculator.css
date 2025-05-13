@@ -1,0 +1,385 @@
+/* style.css */
+
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General body styling */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  background-color: #e1f5fe; /* Light blue background */
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header styling */
+header {
+  background-color: #ffffff;
+  text-align: center;
+  padding: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header img.logo {
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+header .logo.bounce {
+  animation: bounce 1s ease-out;
+}
+
+header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  color: #0288d1; /* Primary blue */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+header .tagline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 400;
+}
+
+/* Main container */
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+/* Form section */
+.form-section, .estimate-section {
+  flex: 1;
+  min-width: 300px;
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.form-section:hover, .estimate-section:hover {
+  transform: translateY(-5px);
+}
+
+.section-block {
+  margin-bottom: 1.5rem;
+}
+
+.section-block h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  color: #0288d1; /* Fallback color */
+  font-weight: 600;
+  margin-bottom: 1rem;
+  /* Suppress linter warnings for vendor prefixes */
+  /* stylelint-disable-next-line */
+  background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+  background: linear-gradient(to right, #0288d1, #4fc3f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-block h3 i {
+  margin-right: 0.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="datetime-local"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="datetime-local"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #0288d1;
+  box-shadow: 0 0 5px rgba(2, 136, 209, 0.3);
+  outline: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+  transform: scale(1.4);
+}
+
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  outline: 2px solid #0288d1;
+  outline-offset: 2px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.invalid {
+  border-color: #e74c3c !important;
+}
+
+/* Estimate section */
+.estimate-box,
+.booking-form {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.estimate-box {
+  background: linear-gradient(to bottom, #e1f5fe, #f5f7fa);
+  border: 2px solid #0288d1;
+}
+
+.estimate-box h3,
+.booking-form h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.estimate-box h3 i,
+.booking-form h3 i {
+  margin-right: 0.5rem;
+}
+
+.estimate-box p {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: #0288d1;
+  font-weight: 500;
+}
+
+.estimate-box strong {
+  font-size: 1.8rem;
+  color: #01579b;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.estimate-box .estimate-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+  color: #4fc3f7;
+}
+
+.estimate-box .discount-line {
+  color: #27ae60; /* Reverted to green */
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: #e8f5e9; /* Light green background */
+  padding: 0.5rem;
+  border-radius: 12px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.estimate-box .discount-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  color: #27ae60; /* Reverted to green */
+}
+
+.estimate-box.pulse {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInSection {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeInSection 0.8s ease-out;
+}
+
+button {
+  background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+  background: linear-gradient(to right, #0288d1, #4fc3f7);
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+button:hover {
+  background: -webkit-linear-gradient(to right, #4fc3f7, #0288d1);
+  background: linear-gradient(to right, #4fc3f7, #0288d1);
+  transform: scale(1.05);
+}
+
+.booking-form button {
+  background: #4fc3f7;
+}
+
+.booking-form button:hover {
+  background: #29b6f6;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .booking-form button {
+    position: sticky;
+    bottom: 1rem;
+    width: 100%;
+    z-index: 100;
+  }
+}
+
+/* Task list styling */
+#light-tasks,
+#deep-tasks {
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+}
+
+#light-tasks h4,
+#deep-tasks h4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+#light-tasks p,
+#deep-tasks p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+#light-tasks ul,
+#deep-tasks ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#light-tasks li,
+#deep-tasks li {
+  font-size: 0.95rem;
+  color: #2c3e50;
+  margin-bottom: 0.3rem;
+}
+
+#light-tasks li ul,
+#deep-tasks li ul {
+  padding-left: 1rem;
+  list-style-type: disc;
+}
+
+/* Cost breakdown styling */
+#cost-breakdown {
+  margin-top: 1rem;
+}
+
+#cost-breakdown h4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+#cost-breakdown ul {
+  list-style-type: none;
+}
+
+#cost-breakdown li {
+  font-size: 0.95rem;
+  color: #2c3e50;
+  margin-bottom: 0.3rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    margin: 1.5rem;
+  }
+
+  header img.logo {
+    max-width: 250px;
+  }
+
+  header h2 {
+    font-size: 1.4rem;
+  }
+
+  #oneTimeOptions label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  #oneTimeOptions button {
+    display: block;
+    margin: 0.5rem 0;
+    width: 100%;
+  }
+}

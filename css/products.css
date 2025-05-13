@@ -297,7 +297,7 @@
       margin: 1.5rem;
     }
   
-    .header-content {
+    /* .header-content {
       text-align: center;
       max-width: 1200px;
       margin: 0 auto;
@@ -315,15 +315,15 @@
   
     .nav-link {
       font-size: 0.9rem;
-    }
+    } */
   
-    .header-text {
+    /* .header-text {
       text-align: center;
-    }
+    } */
   
-    header h2 {
+    /* header h2 {
       font-size: 1.4rem;
-    }
+    } */
   
     .store-button {
       padding: 0.6rem 1rem;

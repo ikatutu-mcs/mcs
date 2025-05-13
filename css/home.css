@@ -1,0 +1,133 @@
+/* home.css */
+
+/* Hero section */
+.hero-section {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(to bottom, #e1f5fe, #f5f7fa);
+    border-radius: 12px;
+  }
+  
+  .hero-section h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    color: #0288d1;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-section .hero-tagline {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    color: #666;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-section p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-section .hero-button {
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+  }
+  
+  /* Services overview */
+  .services-overview {
+    padding: 2rem 0;
+    text-align: center;
+  }
+  
+  .services-overview h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    color: #0288d1;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .services-overview .section-tagline {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 400;
+    margin-bottom: 2rem;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+  }
+  
+  .services-cta {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  /* Call-to-action section */
+  .cta-section {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(to bottom, #e1f5fe, #f5f7fa);
+    border-radius: 12px;
+  }
+  
+  .cta-section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    color: #0288d1;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .cta-section p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-section .cta-button {
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: 2rem 0;
+    }
+  
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+  
+    .hero-section .hero-tagline {
+      font-size: 1.2rem;
+    }
+  
+    .services-overview h2 {
+      font-size: 1.8rem;
+    }
+  
+    .services-overview .section-tagline {
+      font-size: 1rem;
+    }
+  
+    .services-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+  
+    .cta-section {
+      padding: 2rem 0;
+    }
+  
+    .cta-section h2 {
+      font-size: 1.8rem;
+    }
+  }

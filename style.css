@@ -11,10 +11,11 @@
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  background-color: #e1f5fe; /* default: #e6f4f3 Light tint of logo blue (#26a69a) */
+  background-color: #e6f4f3; /* Light tint of logo blue (#26a69a) */
   /* Alternative for deeper blue (#1976d2): #e3f2fd */
   /* Alternative for lighter blue (#4fc3f7): #e1f5fe */
-  background-image: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="10" cy="10" r="2" fill="%2326a69a" fill-opacity="0.1"/%3E%3C/svg%3E');
+  /* Fixed background-image URL encoding */
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='2' fill='%2326a69a' fill-opacity='0.1'/%3E%3C/svg%3E");
   color: #333;
   line-height: 1.6;
 }
@@ -85,12 +86,13 @@ header .tagline {
 .section-block h3 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.3rem;
-  color: #26a69a; /* Matches logo blue */
+  color: #26a69a; /* Fallback color for unsupported browsers */
   font-weight: 600;
   margin-bottom: 1rem;
   background: linear-gradient(to right, #26a69a, #4fc3f7);
-  /* Alternative gradient for deeper blue: #1976d2 to #64b5f6 */
-  /* Alternative gradient for lighter blue: #4fc3f7 to #81d4fa */
+  /* Added vendor prefix for older browsers */
+  background: -webkit-linear-gradient(to right, #26a69a, #4fc3f7);
+  background: linear-gradient(to right, #26a69a, #4fc3f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -125,7 +127,7 @@ input[type="email"]:focus,
 input[type="datetime-local"]:focus,
 textarea:focus,
 select:focus {
-  border-color: #26a69a; /* Matches logo blue */
+  border-color: #26a69a;
   box-shadow: 0 0 5px rgba(38, 166, 154, 0.3);
   outline: none;
 }
@@ -144,7 +146,7 @@ input[type="radio"]:hover {
 
 input[type="checkbox"]:focus,
 input[type="radio"]:focus {
-  outline: 2px solid #26a69a; /* Matches logo blue */
+  outline: 2px solid #26a69a;
   outline-offset: 2px;
 }
 
@@ -169,7 +171,7 @@ textarea {
 
 .estimate-box {
   background: linear-gradient(to bottom, #e6f0fa, #f5f7fa);
-  border: 2px solid #26a69a; /* Matches logo blue */
+  border: 2px solid #26a69a;
 }
 
 .estimate-box h3,
@@ -188,7 +190,7 @@ textarea {
 .estimate-box p {
   margin-bottom: 0.75rem;
   font-size: 1rem;
-  color: #26a69a; /* Matches logo blue */
+  color: #26a69a;
   font-weight: 500;
 }
 
@@ -205,7 +207,7 @@ textarea {
   vertical-align: middle;
   margin-right: 0.5rem;
   font-size: 1.2rem;
-  color: #f4d03f; /* Yellow sparkle from logo */
+  color: #f4d03f;
 }
 
 .estimate-box .discount-line {
@@ -257,9 +259,8 @@ textarea {
 }
 
 button {
-  background: linear-gradient(to right, #26a69a, #4fc3f7); /* Matches logo blue */
-  /* Alternative for deeper blue: #1976d2 to #64b5f6 */
-  /* Alternative for lighter blue: #4fc3f7 to #81d4fa */
+  background: -webkit-linear-gradient(to right, #26a69a, #4fc3f7);
+  background: linear-gradient(to right, #26a69a, #4fc3f7);
   color: #ffffff;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -271,12 +272,13 @@ button {
 }
 
 button:hover {
+  background: -webkit-linear-gradient(to right, #4fc3f7, #26a69a);
   background: linear-gradient(to right, #4fc3f7, #26a69a);
   transform: scale(1.05);
 }
 
 .booking-form button {
-  background: #f4d03f; /* Yellow sparkle from logo */
+  background: #f4d03f;
 }
 
 .booking-form button:hover {

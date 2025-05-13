@@ -11,7 +11,7 @@ const RATE_CONFIG = {
   timeForPets: 0.5,
   serviceTaxRate: 0.00,
   frequencyModifiers: {
-    light: 0.80,
+    light: 0.60,
     deep: 1.2,
     recurring: 0.5
   },
@@ -27,9 +27,9 @@ const RATE_CONFIG = {
   defaultBuildingType: 'Residential',
   recurringDiscounts: {
     1: 0.10,
-    2: 0.20,
-    3: 0.30,
-    4: 0.40
+    2: 0.40,
+    3: 0.50,
+    4: 0.60
   },
   expensePercentages: {
     travelTransportation: 0.05,

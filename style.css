@@ -206,10 +206,10 @@ textarea {
 }
 
 .estimate-box .discount-line {
-  color: #01579b;
+  color: #27ae60; /* Reverted to green */
   font-size: 1.1rem;
   font-weight: 600;
-  background-color: #e1f5fe;
+  background-color: #e8f5e9; /* Light green background */
   padding: 0.5rem;
   border-radius: 12px;
   animation: fadeIn 0.5s ease-in;
@@ -220,7 +220,7 @@ textarea {
   vertical-align: middle;
   margin-right: 0.5rem;
   font-size: 1rem;
-  color: #01579b;
+  color: #27ae60; /* Reverted to green */
 }
 
 .estimate-box.pulse {

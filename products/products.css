@@ -1,0 +1,355 @@
+/* products.css */
+
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General body styling */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  background-color: #e1f5fe; /* Light blue background */
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header styling */
+header {
+  background-color: #ffffff;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo-link {
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+header img.logo {
+  max-width: 300px; /* Larger size for centered logo */
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+header .logo.bounce {
+  animation: bounce 1s ease-out;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.nav-link {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0288d1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #4fc3f7;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+  background: linear-gradient(to right, #0288d1, #4fc3f7);
+  bottom: -4px;
+  left: 0;
+}
+
+.header-text {
+  text-align: center;
+}
+
+header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  color: #0288d1;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+header .tagline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 400;
+}
+
+/* Main container */
+.container {
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Store link section */
+.store-link {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.store-button {
+  display: inline-block;
+  background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+  background: linear-gradient(to right, #0288d1, #4fc3f7);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.store-button:hover {
+  background: -webkit-linear-gradient(to right, #4fc3f7, #0288d1);
+  background: linear-gradient(to right, #4fc3f7, #0288d1);
+  transform: scale(1.05);
+}
+
+/* Slider container */
+.slider-container {
+  position: relative;
+  padding: 0 3rem; /* Space for arrows */
+}
+
+.slider-viewport {
+  overflow: hidden;
+  width: 1096px; /* (250px card + 32px gap) * 4 - 32px = 1096px */
+  margin: 0 auto;
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* Hide scrollbar */
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slider {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Prevent user scrolling during dragging */
+.slider.dragging {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
+.product-card {
+  flex: 0 0 auto;
+  width: 250px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.product-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  color: #0288d1;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.product-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1rem;
+  overflow-wrap: break-word;
+}
+
+.buy-button {
+  display: inline-block;
+  background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+  background: linear-gradient(to right, #0288d1, #4fc3f7);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.buy-button:hover {
+  background: -webkit-linear-gradient(to right, #4fc3f7, #0288d1);
+  background: linear-gradient(to right, #4fc3f7, #0288d1);
+  transform: scale(1.05);
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: -webkit-linear-gradient(to right, #0288d1, #4fc3f7);
+  background: linear-gradient(to right, #0288d1, #4fc3f7);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+.slider-arrow:hover {
+  background: -webkit-linear-gradient(to right, #4fc3f7, #0288d1);
+  background: linear-gradient(to right, #4fc3f7, #0288d1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-arrow.left {
+  left: -20px; /* Align with viewport edge */
+}
+
+.slider-arrow.right {
+  right: -20px; /* Align with viewport edge */
+}
+
+.slider-arrow i {
+  font-size: 1.2rem;
+}
+
+/* Footer styling */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  background-color: #ffffff;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Animations */
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes fadeInSection {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeInSection 0.8s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    margin: 1.5rem;
+  }
+
+  header img.logo {
+    max-width: 250px;
+    margin-bottom: 0.5rem;
+  }
+
+  .nav-menu {
+    gap: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+
+  header h2 {
+    font-size: 1.4rem;
+  }
+
+  .store-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .slider-container {
+    padding: 0 2rem;
+  }
+
+  .slider-viewport {
+    width: 564px; /* (250px card + 32px gap) * 2 - 32px = 564px */
+  }
+
+  .slider-arrow {
+    width: 35px;
+    height: 35px;
+  }
+
+  .slider-arrow i {
+    font-size: 1rem;
+  }
+
+  .slider-arrow.left {
+    left: -15px;
+  }
+
+  .slider-arrow.right {
+    right: -15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .slider-viewport {
+    width: 282px; /* (250px card + 32px gap) * 1 */
+  }
+}

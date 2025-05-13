@@ -5,12 +5,12 @@
     text-align: center;
     padding: 5rem 0;
     position: relative;
-    background: #e1f5fe;
+    background: url('../images/image1.jpg') no-repeat center center/cover;
     overflow: hidden;
     margin-bottom: 3rem;
   }
   
-  /* Aurora wave background */
+  /* Aurora wave overlay */
   .hero-section::before {
     content: '';
     position: absolute;
@@ -20,8 +20,18 @@
     height: 100%;
     background: linear-gradient(45deg, #0288d1, #4fc3f7, #27ae60, #0288d1);
     background-size: 400%;
-    opacity: 0.3;
+    opacity: 0.2;
     animation: auroraWave 15s infinite ease-in-out;
+  }
+  
+  /* Wrapper for h1 to improve readability */
+  .hero-text-wrapper {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
   }
   
   .hero-section h1 {
@@ -30,7 +40,7 @@
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 0.5rem;
-    text-shadow: 0 0 10px rgba(2, 136, 209, 0.7), 0 0 20px rgba(79, 195, 247, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), 0 0 5px rgba(2, 136, 209, 0.5); /* Reduced glow, added dark outline */
     animation: fadeInWave 1s ease-out;
   }
   
@@ -188,11 +198,11 @@
     text-align: center;
     padding: 4rem 0;
     position: relative;
-    background: linear-gradient(45deg, #0288d1, #4fc3f7, #27ae60, #0288d1);
-    background-size: 400%;
-    animation: auroraWave 15s infinite ease-in-out;
+    background: url('../images/image3.jpg') no-repeat center center/cover;
+    overflow: hidden;
   }
   
+  /* Overlay to ensure text readability */
   .cta-section::before {
     content: '';
     position: absolute;
@@ -200,7 +210,21 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Aurora wave overlay */
+  .cta-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #0288d1, #4fc3f7, #27ae60, #0288d1);
+    background-size: 400%;
+    opacity: 0.1;
+    animation: auroraWave 15s infinite ease-in-out;
   }
   
   .cta-section h2 {

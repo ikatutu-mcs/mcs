@@ -57,7 +57,7 @@ header.scrolled {
 }
 
 header img.logo {
-  max-width: 200px;
+  max-width: 250px; /* Increased from 200px */
   height: auto;
   animation: pulseGlow 2s infinite ease-in-out;
 }
@@ -218,7 +218,7 @@ footer p {
   }
 
   header img.logo {
-    max-width: 150px;
+    max-width: 180px; /* Increased from 150px */
   }
 
   .header-content {

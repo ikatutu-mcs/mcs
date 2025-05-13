@@ -45,30 +45,30 @@
           <i class="fas fa-home service-icon"></i>
           <h3>Residential Cleaning</h3>
           <p>Keep your home spotless with our thorough residential cleaning services.</p>
-          <a href="services.html" class="gradient-button">Learn More</a>
+          <a href="https://ikatutu-mcs.github.io/mcs/services.html" class="gradient-button">Learn More</a>
         </div>
         <div class="service-card card">
           <i class="fas fa-building service-icon"></i>
           <h3>Commercial Cleaning</h3>
           <p>Maintain a professional environment with our commercial cleaning services.</p>
-          <a href="services.html" class="gradient-button">Learn More</a>
+          <a href="https://ikatutu-mcs.github.io/mcs/services.html" class="gradient-button">Learn More</a>
         </div>
         <div class="service-card card">
           <i class="fas fa-sparkles service-icon"></i>
           <h3>Deep Cleaning</h3>
           <p>Tackle hard-to-reach areas and stubborn dirt with our deep cleaning service.</p>
-          <a href="services.html" class="gradient-button">Learn More</a>
+          <a href="https://ikatutu-mcs.github.io/mcs/services.html" class="gradient-button">Learn More</a>
         </div>
       </div>
       <div class="services-cta">
-        <a href="services.html" class="gradient-button">See All Services</a>
+        <a href="https://ikatutu-mcs.github.io/mcs/services.html" class="gradient-button">See All Services</a>
       </div>
     </section>
 
     <section class="cta-section">
       <h2>Ready to Get Started?</h2>
       <p>Let us take care of your cleaning needs—get a personalized quote today!</p>
-      <a href="calculator.html" class="gradient-button cta-button">Get Your Quote Now</a>
+      <a href="https://ikatutu-mcs.github.io/mcs/calculator.html" class="gradient-button cta-button">Get Your Quote Now</a>
     </section>
   </main>
 
@@ -84,6 +84,37 @@
       } else {
         header.classList.remove('scrolled');
       }
+    });
+
+    // Debugging script for "Get Your Quote Now" button
+    document.addEventListener('DOMContentLoaded', function() {
+      const button = document.querySelector('.cta-section .cta-button');
+      
+      // Log initial state
+      console.log('Get Your Quote Now button initial state:', {
+        pointerEvents: window.getComputedStyle(button).pointerEvents,
+        zIndex: window.getComputedStyle(button).zIndex,
+        display: window.getComputedStyle(button).display
+      });
+
+      // Log click events
+      button.addEventListener('click', function() {
+        console.log('Get Your Quote Now button clicked at', new Date().toISOString());
+      });
+
+      // Monitor changes after 3 seconds
+      setTimeout(function() {
+        console.log('Get Your Quote Now button state after 3 seconds:', {
+          pointerEvents: window.getComputedStyle(button).pointerEvents,
+          zIndex: window.getComputedStyle(button).zIndex,
+          display: window.getComputedStyle(button).display
+        });
+
+        // Check for overlapping elements
+        const rect = button.getBoundingClientRect();
+        const overlapping = document.elementsFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        console.log('Elements at Get Your Quote Now button position:', overlapping);
+      }, 3000);
     });
   </script>
 </body>

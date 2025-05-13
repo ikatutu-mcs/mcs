@@ -5,7 +5,7 @@
     text-align: center;
     padding: 5rem 0;
     position: relative;
-    background: url('../images/image3.jpg') no-repeat center center/cover;
+    background: url('../images/image1.jpg') no-repeat center center/cover;
     overflow: hidden;
     margin-bottom: 3rem;
   }
@@ -27,7 +27,7 @@
   /* Wrapper for h1 to improve readability */
   .hero-text-wrapper {
     display: inline-block;
-    background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+    background: rgba(0, 0, 0, 0.5);
     padding: 0.5rem 1rem;
     border-radius: 8px;
     backdrop-filter: blur(5px);
@@ -48,7 +48,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 1.8rem;
     font-weight: 400;
-    color: #f8faf7;
+    color: #e1f5fe;
     margin-bottom: 1rem;
     text-shadow: 0 0 5px rgba(2, 136, 209, 0.5);
     animation: fadeInWave 1.2s ease-out;
@@ -199,6 +199,14 @@
     margin-top: 2.5rem;
     text-align: center;
     animation: fadeIn 1.6s ease-out;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .services-cta .gradient-button {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 100;
   }
   
   /* Call-to-action section */
@@ -206,7 +214,7 @@
     text-align: center;
     padding: 4rem 0;
     position: relative;
-    background: url('../images/image1.jpg') no-repeat center center/cover;
+    background: url('../images/image3.jpg') no-repeat center center/cover;
     overflow: hidden;
   }
   
@@ -219,6 +227,7 @@
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.7);
+    z-index: 1; /* Ensure it’s behind the content */
   }
   
   /* Aurora wave overlay */
@@ -233,22 +242,27 @@
     background-size: 400%;
     opacity: 0.1;
     animation: auroraWave 15s infinite ease-in-out;
+    z-index: 2; /* Behind the content but above the background overlay */
   }
   
   .cta-section h2 {
     font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
-    color: #021ed1;
+    color: #0288d1;
     font-weight: 600;
     margin-bottom: 0.5rem;
     animation: fadeIn 1s ease-out;
+    position: relative;
+    z-index: 3; /* Ensure text is above pseudo-elements */
   }
   
   .cta-section p {
     font-size: 1.1rem;
-    color: #0b0707;
+    color: #333;
     margin-bottom: 1.5rem;
     animation: fadeIn 1.2s ease-out;
+    position: relative;
+    z-index: 3;
   }
   
   .cta-section .cta-button {
@@ -260,6 +274,8 @@
     background: linear-gradient(to right, #0288d1, #4fc3f7);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeIn 1.4s ease-out;
+    z-index: 3; /* Ensure button is above pseudo-elements */
+    pointer-events: auto !important; /* Force clickability */
   }
   
   .cta-section .cta-button:hover {

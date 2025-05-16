@@ -2,18 +2,18 @@
 
 // === Rate Configuration ===
 const RATE_CONFIG = {
-  cleanerRate: 35,
+  cleanerRate: 30,
   commercialRateIncrease: 15,
-  timePerBedroom: 0.55,
-  timePerBathroom: 0.75,
-  timeForKitchen: 0.55,
-  timeForLivingRoom: 0.5,
-  timeForPets: 0.5,
-  serviceTaxRate: 0.00,
+  timePerBedroom: 0.50,
+  timePerBathroom: 0.60,
+  timeForKitchen: 0.50,
+  timeForLivingRoom: 0.50,
+  timeForPets: 0.45,
+  serviceTaxRate: 0.0,
   frequencyModifiers: {
-    light: 0.60,
-    deep: 1.2,
-    recurring: 0.5
+    light: 0.8,// 20% off for light cleanings 80% of the original price
+    deep: 1.2, // add 20% of the original price for deep cleanings
+    recurring: 1.0 // remain the same original Price, the price will be adjusted on recurringDiscounts:
   },
   extrasMap: {
     'Outside windows': 0.5,
@@ -53,30 +53,32 @@ const RATE_CONFIG = {
 
 const FORMSPREE_URL = 'https://formspree.io/f/xanopboz';
 
-function calculateEstimate({
-  bedrooms = 0,
-  bathrooms = 0,
-  hasKitchen = false,
-  hasLivingRoom = false,
-  hasPets = false,
-  buildingType = RATE_CONFIG.defaultBuildingType,
+function calculateEstimate({ // Function to calculate the estimate based on user inputs
+  // Default values for the parameters
+  // These values can be overridden by the user inputs 
+  bedrooms = 0, // Select 
+  bathrooms = 0, // Select
+  hasKitchen = false, // is not checked 
+  hasLivingRoom = false, // is not checked 
+  hasPets = false, // is not checked 
+  buildingType = RATE_CONFIG.defaultBuildingType, // Residential will be selected by default 
   oneTimeType = null,
   monthlyCleanings = 0,
   extras = [],
   travelCost = 0,
-  numberOfCleaners = 1,
+  numberOfCleaners = 1,// The number of cleaners can be changed by the user. The default value is 1 
   discountPercentage = 0
 }) {
-  let cleanerRate = RATE_CONFIG.cleanerRate;
-  let hours = 0;
+  let cleanerRate = RATE_CONFIG.cleanerRate; // Default cleaner rate 
+  let hours = 0; // Total hours needed for cleaning 
   let taxTotal = 0;
   let price = 0;
   let baseSubtotal = 0;
 
-  if (buildingType === 'Commercial') cleanerRate += RATE_CONFIG.commercialRateIncrease;
+  if (buildingType === 'Commercial') cleanerRate += RATE_CONFIG.commercialRateIncrease; // Increase the rate for commercial buildings 
 
   function addItem(hoursCount) {
-    const price = hoursCount * cleanerRate * numberOfCleaners;
+    const price = hoursCount * cleanerRate * numberOfCleaners; // Calculate the price based on the hours and cleaner rate 
     const taxedPrice = price * RATE_CONFIG.serviceTaxRate;
     taxTotal += taxedPrice;
     baseSubtotal += price;
@@ -143,59 +145,63 @@ function calculateEstimate({
   const adjustedHours = hours / numberOfCleaners;
 
   return {
-    estimatedHours: Math.round(adjustedHours * 10) / 10,
-    estimatedPrice: Math.round(price * 100) / 100,
-    subtotal: Math.round(baseSubtotal * 100) / 100,
-    tax: Math.round(taxTotal * 100) / 100,
-    recurringDiscount: Math.round(recurringDiscount * 100) / 100,
-    additionalDiscount: Math.round(additionalDiscount * 100) / 100
+    estimatedHours: Math.round(adjustedHours * 10) / 10,               // Round to 1 decimal place
+    estimatedPrice: Math.round(price * 100) / 100,                     // Round to 2 decimal places
+    subtotal: Math.round(baseSubtotal * 100) / 100,                    // Round to 2 decimal places
+    tax: Math.round(taxTotal * 100) / 100,                             // Round to 2 decimal places
+    recurringDiscount: Math.round(recurringDiscount * 100) / 100,      // Round to 2 decimal places
+    additionalDiscount: Math.round(additionalDiscount * 100) / 100     // Round to 2 decimal places
   };
 }
 
 // DOM interaction logic
 document.addEventListener('DOMContentLoaded', function () {
-  const estimateBox = document.querySelector('.estimate-box');
-  const estimateBoxStrong = document.querySelector('.estimate-box strong');
-  const subtotalLine = document.querySelector('.estimate-box p:nth-child(2)');
-  const estimateTime = document.querySelector('.estimate-box p:nth-child(3)');
-  const totalEstimateLine = document.querySelector('.estimate-box p:nth-child(4)');
-  const showBreakdownButton = document.getElementById('show-breakdown');
-  const costBreakdownDiv = document.getElementById('cost-breakdown');
+  const estimateBox = document.querySelector('.estimate-box'); // Select the estimate box
+  const estimateBoxStrong = document.querySelector('.estimate-box strong'); // Select the strong element inside the estimate box
+  const subtotalLine = document.querySelector('.estimate-box p:nth-child(2)'); // Select the second item inside the estimate box
+  const estimateTime = document.querySelector('.estimate-box p:nth-child(3)'); // Select the third item inside the estimate box
+  const totalEstimateLine = document.querySelector('.estimate-box p:nth-child(4)'); // Select the fourth item inside the estimate box
+  const showBreakdownButton = document.getElementById('show-breakdown'); // Select the button to show/hide the cost breakdown
+  const costBreakdownDiv = document.getElementById('cost-breakdown'); // Select the cost breakdown div 
 
-  const oneTimeCheckbox = document.getElementById('oneTimeCheckbox');
-  const oneTimeOptions = document.getElementById('oneTimeOptions');
-  const monthlyCheckbox = document.getElementById('monthlyCheckbox');
-  const monthlyCount = document.getElementById('monthlyCount');
+  const oneTimeCheckbox = document.getElementById('oneTimeCheckbox'); // Select the one-time checkbox
+  const oneTimeOptions = document.getElementById('oneTimeOptions'); // Select the one-time options div
+  const monthlyCheckbox = document.getElementById('monthlyCheckbox'); // Select the monthly checkbox
+  const monthlyCount = document.getElementById('monthlyCount'); // Select the monthly count input
 
   oneTimeCheckbox.addEventListener('change', function () {
     oneTimeOptions.style.display = this.checked ? 'block' : 'none';
     oneTimeOptions.setAttribute('aria-hidden', this.checked ? 'false' : 'true');
     if (this.checked) {
-      monthlyCheckbox.checked = false;
-      monthlyCount.disabled = true;
-      monthlyCount.value = '0';
-      document.querySelector('input[name="oneTimeType"][value="light"]').checked = true;
+      monthlyCheckbox.checked = false; // Uncheck the monthly checkbox
+      monthlyCount.disabled = true; // Disable the monthly count input
+      monthlyCount.value = '0'; // Reset the monthly count input
+      document.querySelector('input[name="oneTimeType"][value="light"]').checked = true; // Check the light cleaning option by default 
     }
     updateEstimate();
   });
 
-  monthlyCheckbox.addEventListener('change', function () {
-    monthlyCount.disabled = !this.checked;
-    if (this.checked) {
-      oneTimeCheckbox.checked = false;
-      oneTimeOptions.style.display = 'none';
-      oneTimeOptions.setAttribute('aria-hidden', 'true');
-      document.querySelectorAll('input[name="oneTimeType"]').forEach(radio => radio.checked = false);
+  monthlyCheckbox.addEventListener('change', function () { // Handle the monthly checkbox change 
+    monthlyCount.disabled = !this.checked; // Enable/disable the monthly count input 
+    if (this.checked) { // If monthly is checked
+      oneTimeCheckbox.checked = false; // Uncheck the one-time checkbox
+      oneTimeOptions.style.display = 'none'; // Hide the one-time options
+      oneTimeOptions.setAttribute('aria-hidden', 'true'); // Set aria-hidden to true
+      document.querySelectorAll('input[name="oneTimeType"]').forEach(radio => radio.checked = false); // Uncheck all one-time type radio buttons
+      monthlyCount.value = '1'; // Set the monthly count to 1
     }
-    updateEstimate();
+    updateEstimate(); // Update the estimate 
   });
 
-  showBreakdownButton.addEventListener('click', function () {
-    const isExpanded = costBreakdownDiv.style.display === 'block';
-    costBreakdownDiv.style.display = isExpanded ? 'none' : 'block';
-    costBreakdownDiv.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
-    this.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-    this.textContent = isExpanded ? 'Show Cost Breakdown' : 'Hide Cost Breakdown';
+  showBreakdownButton.addEventListener('click', function () { // Handle the show/hide breakdown button click 
+    const isExpanded = costBreakdownDiv.style.display === 'block'; // Check if the breakdown is currently expanded 
+    costBreakdownDiv.style.display = isExpanded ? 'none' : 'block'; // Toggle the display of the breakdown
+    costBreakdownDiv.setAttribute('aria-hidden', isExpanded ? 'true' : 'false'); // Set aria-hidden attribute
+    this.setAttribute('aria-expanded', isExpanded ? 'false' : 'true'); // Toggle the aria-expanded attribute 
+    this.textContent = isExpanded ? 'Show Cost Breakdown' : 'Hide Cost Breakdown';  // Update the button text
+    // if (!isExpanded) {
+    //   costBreakdownDiv.scrollIntoView({ behavior: 'smooth' }); // Scroll to the breakdown if expanded //
+    // }
   });
 
   document.getElementById('show-light-tasks').addEventListener('click', function () {
@@ -298,8 +304,8 @@ document.addEventListener('DOMContentLoaded', function () {
       businessGrowth: profit * 0.5
     };
     const breakdown = {
-      labor: laborCost,
-      travelTransportation: totalExpenses * RATE_CONFIG.expensePercentages.travelTransportation,
+      labor: laborCost, // Labor cost
+      travelTransportation: totalExpenses * RATE_CONFIG.expensePercentages.travelTransportation, // Travel & Transportation
       insurance: totalExpenses * RATE_CONFIG.expensePercentages.insurance,
       cleaningProducts: totalExpenses * RATE_CONFIG.expensePercentages.cleaningProducts,
       marketing: totalExpenses * RATE_CONFIG.expensePercentages.marketing,
@@ -316,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function () {
     breakdownList.innerHTML = `
       <li><b> Business Operation Cost: </b>
         <ul style="padding-left: 1.5rem; list-style-type: disc;">
-          <li>Labor: $${breakdown.labor.toFixed(2)}</li>
+          <li>Labor and Payrol: $${breakdown.labor.toFixed(2)}</li>
           <li>Travel & Transportation: $${breakdown.travelTransportation.toFixed(2)}</li>
           <li>Insurance: $${breakdown.insurance.toFixed(2)}</li>
           <li>Cleaning Products: $${breakdown.cleaningProducts.toFixed(2)}</li>

@@ -1,4 +1,12 @@
 /* home.css */
+ /* General body styling */
+  body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    background-color: #e1f5fe; /* Light blue background */
+    color: #333;
+    line-height: 1.6;
+  }
 
 /* Hero section */
 .hero-section {

@@ -16,7 +16,7 @@
     line-height: 1.6;
   }
   
-  /* Header styling */
+  /* Header styling
   header {
     background-color: #ffffff;
     padding: 1rem 1.5rem;
@@ -40,14 +40,14 @@
   }
   
   header img.logo {
-    max-width: 300px; /* Larger size for centered logo */
+    max-width: 300px; /* Larger size for centered logo *
     height: auto;
     margin-bottom: 0.5rem;
   }
   
   header .logo.bounce {
     animation: bounce 1s ease-out;
-  }
+  } */
   
   .nav-menu {
     display: flex;

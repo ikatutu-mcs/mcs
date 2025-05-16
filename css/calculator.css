@@ -61,6 +61,16 @@ header .tagline {
   flex-wrap: wrap;
 }
 
+.form-section, .estimate-section2 {
+  flex: 1;
+  min-width: 300px;
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
 /* Form section */
 .form-section, .estimate-section {
   flex: 1;

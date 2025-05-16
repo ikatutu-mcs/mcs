@@ -20,9 +20,19 @@ const RATE_CONFIG = {
     'Window wells': 0.5,
     'Garage': 1,
     'Carpet cleaning': 1,
-    'Inside oven': 0.5,
     'Baseboard cleaning': 0.75,
-    'Laundry': 0.5
+    'Laundry': 0.5,
+    'Inside oven': 0.5,
+    'Inside fridge': 0.5,
+    'Inside cabinets': 0.5,
+    'inside microwave': 0.5,
+    'Inside dishwasher': 0.5,
+    'Inside closets': 0.5,
+    'Inside cabinets': 0.5,
+    'Inside drawers': 0.5,
+    'Inside cupboards': 0.5,
+    'Inside pantry': 0.5,
+    'Inside storage': 0.5
   },
   defaultBuildingType: 'Residential',
   recurringDiscounts: {

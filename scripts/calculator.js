@@ -1,5 +1,4 @@
 // script.js
-
 // === Rate Configuration ===
 const RATE_CONFIG = {
   cleanerRate: 30,

@@ -11,8 +11,8 @@ const RATE_CONFIG = {
   timeForPets: 0.45,
   serviceTaxRate: 0.0,
   frequencyModifiers: {
-    light: 0.8,// 20% off for light cleanings 80% of the original price
-    deep: 1.2, // add 20% of the original price for deep cleanings
+    light: 1,// 20% off for light cleanings 80% of the original price
+    deep: 1.5, // add 20% of the original price for deep cleanings
     recurring: 1.0 // remain the same original Price, the price will be adjusted on recurringDiscounts:
   },
   extrasMap: {
@@ -463,4 +463,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initial estimate
   updateEstimate();
+});
+
+// // Smooth scroll for anchor links
+// function togglePopup(element) {
+//     const container = element.parentElement;
+//     container.classList.toggle("active");
+//   }
+
+//   // Optional: Close the popup if clicked outside
+//   document.addEventListener('click', function(event) {
+//     document.querySelectorAll('.info-container').forEach(container => {
+//       if (!container.contains(event.target)) {
+//         container.classList.remove('active');
+//       }
+//     });
+//   });
+
+document.querySelectorAll('.info-container .info-icon').forEach(icon => {
+  icon.addEventListener('click', function (e) {
+    e.stopPropagation();
+
+    // Remove existing tooltips
+    document.querySelectorAll('.tooltip-box').forEach(box => box.remove());
+
+    const container = this.parentElement;
+    const message = container.getAttribute('data-info');
+
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('tooltip-box');
+    tooltip.textContent = message;
+
+    container.appendChild(tooltip);
+    tooltip.style.display = 'block';
+  });
+});
+
+// Hide tooltip when clicking outside
+document.addEventListener('click', function () {
+  document.querySelectorAll('.tooltip-box').forEach(box => box.remove());
 });

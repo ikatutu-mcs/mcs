@@ -91,22 +91,24 @@
             <option value="Commercial">Commercial</option>
           </select>
         </label>
-        <label for="discountOption">Discount Option:
-          <select id="discountOption">
-            <option value="0">No discount</option>
-            <option value="20">Family & Friend's Discount</option>
-            <option value="0">Promo Discount</option>
-            <option value="10">First Time Customer</option>
-            <option value="0">Military Discount</option>
-            <option value="0">Senior Discount</option>
-            <option value="0">Student Discount</option>
-            <option value="0">Loyalty Discount</option>
-            <option value="0">Membership Discount</option>
-            <option value="0">Seasonal Discount</option>
-            <option value="0">Holiday Discount</option>
-            <option value="0">Bulk Booking Discount</option>
-          </select>
-        </label>
+    
+          <span class="info-container" data-info="
+              Discounts are *request-only* and must be approved by the cleaner or owner. Any selected discount will be verified and applied upon invoicing.">
+              <span class="info-icon">i</span>
+          </span>
+          <label for="discountOption">Discount Option: <!-- This is a placeholder for the actual discount options -->
+            <select id="discountOption">
+              <option value="0">No discount</option>
+              <option value="20">Family & Friend's Discount</option>
+              <option value="10">First Time Customer</option>
+              <option value="10">Referral Discount</option>
+              <option value="10">Promo Discount</option>
+              <option value="10">Military Discount</option>
+              <option value="0">Loyalty Discount</option>
+              <option value="0">Membership Discount</option>
+              <option value="10">Non-Profit Discount</option>
+            </select>
+          </label>
       </div>
 
       <div class="section-block">
@@ -120,15 +122,60 @@
             <ul>
               <li><strong>General Areas (Bedrooms, Living Room, Office, Hallways):</strong></li>
               <ul>
-                <li>Dust all surfaces (tables, shelves, décor)</li>
-                <li>Wipe down visible surfaces (non-sticky, no buildup)</li>
-                <li>Vacuum carpets and rugs</li>
-                <li>Sweep & mop hard floors</li>
-                <li>Empty trash bins</li>
-                <li>Straighten up (arranging pillows, folding blankets)</li>
-                <li>Light dusting of baseboards and vents</li>
-                <li>Clean mirrors and glass surfaces (spot cleaning)</li>
-                <li>Light cobweb removal (reachable areas)</li>
+                <li>Dust all surfaces (tables, shelves, décor)
+                  <span class="info-container" data-info="
+                        Removes surface dust from furniture and décor. No lifting; items won’t be moved or detailed, and hard-to-reach areas are not included.">
+                       <span class="info-icon">i</span>
+                  </span>
+                </li>
+                <li>Wipe down visible surfaces (non-sticky, no buildup)
+                  <span class="info-container" data-info="
+                      Light cleaning only—no sticky messes or thick buildup.">
+                      <span class="info-icon">i</span>
+                  </span>
+                </li>
+                <li>Vacuum carpets and rugs
+                  <span class="info-container" data-info="
+                      Surface vacuuming only. Heavy stains, deep dirt, or pet odor treatment are not included in light cleaning.">
+                      <span class="info-icon">i</span>
+                  </span>
+                </li>
+                <li>Sweep & mop hard floors
+                  <span class="info-container" data-info="
+                      Surface vacuuming only. Heavy stains, deep dirt, or pet odor treatment are not included in light cleaning.">
+                      <span class="info-icon">i</span>
+                  </span>
+                </li> 
+                <li>Spot clean walls (light marks)
+                  <span class="info-container" data-info="
+                      Spot cleaning only. No deep cleaning or scrubbing.">
+                      <span class="info-icon">i</span>
+                  </span>
+                </li> 
+                <li>Empty trash bins
+                  <span class="info-container" data-info="
+                      Trash removal is included if the cleaner has access to the trash bins.">
+                      <span class="info-icon">i</span>
+                  </span>
+                </li>
+                <li>Light dusting of baseboards and vents
+                  <span class="info-container" data-info="
+                      Surface-level dusting of visible baseboards and air vents. Does not include deep scrubbing, stain removal, or behind furniture.">
+                      <span class="info-icon">i</span>
+                  </span>
+                </li>
+                <li>Clean mirrors and glass surfaces (spot cleaning)
+                  <span class="info-container" data-info="
+                      Quick wipe of visible smudges on mirrors and glass. Deep polishing or large glass surfaces not included in light cleaning.">
+                      <span class="info-icon">i</span>
+                  </span>
+                </li>
+                <li>Light cobweb removal (reachable areas)
+                  <span class="info-container" data-info="
+                      Cobwebs removed from easy-to-reach areas only. No ladders or extended pole work included in light cleaning.">
+                      <span class="info-icon">i</span>
+                  </span>
+                </li>
               </ul>
               <li><strong>Kitchen:</strong></li>
               <ul>
@@ -262,7 +309,7 @@
           </ul>
         </div>
       </div>
-  
+
       <div class="booking-form">
         <h3>Request a Booking or Final Quote</h3>
         <form method="POST">
